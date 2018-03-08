@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<div class="container">
+
+	<h1>Details</h1>
+	<div>
+		<h4>Request-<span th:text="${requestBean.requestId}"></span></h4>
+		<hr />
+		<dl class="dl-horizontal">
+			<dt th:text="'Request-' + ${requestBean.Id}" />
+		    <dt th:text="'Short Description: ' + ${requestBean.shortDescription}" />
+		    <dt th:text="'Description: ' + ${requestBean.description}" />
+		    <dt th:text="'Created By: ' + ${requestBean.createdBy}" />
+		    <dt th:text="'Created At: ' + ${requestBean.createdAt}" />
+		    <a href="/new">Submit another request</a>
+	    </dl>
+    </div>
+</div>    
+</body>
+</html>
