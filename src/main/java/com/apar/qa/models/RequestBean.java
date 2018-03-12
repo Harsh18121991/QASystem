@@ -4,17 +4,24 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+@Entity
+@Table(name="RequestMaster")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RequestBean implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8934737151319658838L;
-
+	
+	@Id
 	@JsonProperty("requestId")
 	String requestId;
 	
@@ -24,23 +31,44 @@ public class RequestBean implements Serializable {
 	@JsonProperty("shortDescription")
 	String shortDescription;
 	
+	@Column
 	@JsonProperty("description")
 	String description;
 	
+	@Column
 	@JsonProperty("requestType")
 	String requestType;
 	
+	@Column
 	@JsonProperty("contentType")
 	String contentType;
 
+	@Column
 	@JsonProperty("status")
 	String status;
 	
+	@Column
 	@JsonProperty("createdBy")
 	String createdBy;
 	
+	@Column
 	@JsonProperty("createdAt")
 	Date createdAt;
+	
+	@Column
+	String owner;
+	
+	@Column
+	String tags;
+	
+	@Column
+	String priority;
+	
+	@Column
+	Date targetClosureDate;
+	
+	@Column
+	Date expectedReviewDate;
 	
 	public RequestBean() {
 		
@@ -134,6 +162,45 @@ public class RequestBean implements Serializable {
 	}
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+	public String getOwner() {
+		return owner;
+	}
+
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+
+	public String getTags() {
+		return tags;
+	}
+
+	public void setTags(String tags) {
+		this.tags = tags;
+	}
+
+	public String getPriority() {
+		return priority;
+	}
+
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+	public Date getTargetClosureDate() {
+		return targetClosureDate;
+	}
+
+	public void setTargetClosureDate(Date targetClosureDate) {
+		this.targetClosureDate = targetClosureDate;
+	}
+
+	public Date getExpectedReviewDate() {
+		return expectedReviewDate;
+	}
+
+	public void setExpectedReviewDate(Date expectedReviewDate) {
+		this.expectedReviewDate = expectedReviewDate;
 	}
 	
 	 public void setProperties(Map<String, String> beanproperties) {
