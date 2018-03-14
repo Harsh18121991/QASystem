@@ -29,7 +29,8 @@ public class DashboardController {
 		}
 		
 		model.addAttribute("allRequests", theList);
-		return "Dashboard/index";
+		model.addAttribute("request",new RequestBean());
+		return "Dashboard/listing";
 	}
 
 	/*

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+	
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Quality System</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.css"/>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+    <script>
+    	function redirectPage()
+    	{
+    		window.location = "view.html";
+    	}
+    </script>
+</head>
+
+<body>
+	<div th:include="topnav::topnav"></div> 
+
+    <!-- Body -->
+    <div class="container">
+
+        <h1>List Requests</h1>
+		<div class="row">
+		            <form action="#">
+		            <div class="form-group col-xs-4">
+                        <label for="requestId">Request Id</label>
+                        <input type="text" class="form-control" id="requestId" placeholder="Request Id"/>
+                    </div>
+		            <div class="form-group col-xs-4">
+                        <label for="requestTitle">Request Name</label>
+                        <input type="text" class="form-control" id="requestTitle" placeholder="Request Name"/>
+                    </div>
+		            <div class="form-group col-xs-4">
+                        <label for="priority">Priority</label>
+							<select class="form-control" id="priority">
+                        		  <option value="select">Select</option>
+								  <option value="low">Low</option>
+								  <option value="moderate">Moderate</option>
+								  <option value="high">High</option>
+								  <option value="urgent">Urgent</option></select>
+                    </div>
+		            <div class="form-group col-xs-4">
+                        <label for="status">Status</label>
+                        <select class="form-control" id="status">
+                        		  <option value="select">Select</option>
+								  <option value="requested">Requested</option>
+								  <option value="inProgress">InProgress</option>
+								  <option value="assigned">Assigned</option>
+								  <option value="reassigned">ReAssigned</option>
+								  <option value="escalated">Escalated</option>
+								  <option value="rejected">Rejected</option>
+								  <option value="closed">Closed</option>
+								  <option value="deleted">Deleted</option></select>
+                    </div>
+		            <div class="form-group col-xs-4">
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control"  id="tags" placeholder="Tags"/>
+                    </div>
+                            <div class="form-group col-xs-4">
+                                <label for="fromDate">From Date</label>
+                                <input type="date" class="form-control" id="fromDate" placeholder="Select"/>
+                            </div>
+                            <div class="form-group col-xs-4">
+                                <label for="toDate">To Date</label>
+                                <input type="date" class="form-control" id="toDate" placeholder="Select"/>
+                            </div>
+                    <div><button type="search" class="btn btn-primary col-xs-4" style="margin-top:25px">Search</button></div>
+         </form>
+		</div>
+		<div class="row">
+			<div th:each="request : ${allRequests}">
+				<div class="col-sm-4">
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							Request <span th:text="${request.requestId}"></span>
+						</div>
+						<table class="table">
+							<tr>
+								<th>Short Description</th>
+								<td><span th:text="${request.shortDescription}"></span></td>
+							</tr>
+							<tr>
+								<th>Contact</th>
+								<td><a href="tel:14174444444"><span
+										th:text="${request.createdBy}"></span></a></td>
+							</tr>
+							<tr>
+								<th>Content Type</th>
+								<td><span th:text="${request.contentType}"></span></td>
+							</tr>
+							<tr>
+								<td><button type="View" class="btn btn-primary" onclick ="redirectPage()">View</button></td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+    <!-- JavaScript -->
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.js"></script>
+
+</body>
+
+</html>
