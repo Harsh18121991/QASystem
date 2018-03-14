@@ -13,6 +13,26 @@
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.css"/>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/main.css"/>
+	
+<script>
+window.onload = function() {
+	  document.getElementById('textbox').style.display = 'none';
+	  document.getElementById('documentbox').style.display = 'none';
+	}
+
+function showDiv(elem){
+	   if(elem.value == 'Text'){
+		   document.getElementById('documentbox').style.display = 'none';
+		   document.getElementById('textbox').style.display = "block";
+	   }
+	   if(elem.value == 'Document'){
+		   document.getElementById('textbox').style.display = 'none';
+		   document.getElementById('documentbox').style.display = "block";
+	   }
+	}
+</script>
+
+
 
 </head>
 
@@ -22,7 +42,7 @@
 	<div th:include="topnav::topnav"></div>
 	 
     <!-- Body -->
-    <div class="container">
+    <div class="container" style="width:90%;background-color:grey">
 		
         <h1>Raise a Request</h1>
 
@@ -35,24 +55,24 @@
                 <div class="col-sm-6">
 
                     <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" th:field="*{description}" rows="3" id="description"></textarea>
+                        <label for="description" >Description</label>
+                        <textarea style="border: 1px solid black" class="form-control" th:field="*{description}" rows="3" id="description"></textarea>
                     </div>
 
                     <div class="form-group">
                         <label for="shortDescription">Short Description</label>
-                        <input type="text" class="form-control" th:field="*{shortDescription}" id="shortDescription" placeholder="Describe your review request here"/>
+                        <input style="border: 1px solid black" type="text" class="form-control" th:field="*{shortDescription}" id="shortDescription" placeholder="Describe your review request here"/>
                     </div>
 
                     <div class="form-group">
                         <label for="requestTitle">Request Title</label>
-                        <input type="text" class="form-control" th:field="*{requestTitle}" id="requestTitle" placeholder="Enter your request title"/>
+                        <input style="border: 1px solid black" type="text" class="form-control" th:field="*{requestTitle}" id="requestTitle" placeholder="Enter your request title"/>
                     </div><br/>
                     
              <!--         <div class="form-group">-->
                     <div class="form-group">
                         <label for="requestTitle" >Request Type</label><br/>
-                        <select style="height:45px;width:560px">
+                        <select style="height:45px;width:675px;border:1px solid black" >
  							<option hidden="">Choose Type</option>
 							 <option>Document Review</option>
 							 <option>Application Review</option>
@@ -62,9 +82,9 @@
 						</select>
                     </div>
                     
-				   <div class="form-group">
+				   <div class="form-group" id="contentType" >
                         <label for="requestTitle" >Content Type</label><br/>
-                        <select style="height:45px;width:560px">
+                        <select style="height:45px;width:675px;border:1px solid black" onchange="showDiv(this)">
  							<option hidden="">Choose Content Type</option>
 							 <option>Text</option>
 							 <option>Document</option>
@@ -72,24 +92,34 @@
 						</select>
                     </div>
                     
-                        <div class="col-xs-6">
-                            <div class="form-group">
-                                <label for="targetDate">Target Date</label>
-                                <input type="date" class="form-control"  id="targetDate" placeholder="Enter Target Date here (dd/MM/yyyy)"/>
-                            </div>
-                        </div>
                     
-                      <div class="col-xs-6" >
-                            <div class="form-group">
+        
+                    
+                     <div  id='textbox' class="form-group">
+                        <label for="description">Content Text</label>
+                        <textarea style="border:1px solid black" class="form-control"  rows="3" id="text"></textarea>
+                    </div>
+                    
+                     <div id='documentbox' class="form-group">
+                        <label for="document">Choose File</label>
+                        <input style="border:1px solid black" type="file" class="form-control" id="file" name="file"/>
+                    </div>
+                    
+                    <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="targetDate" >Target Date</label>
+                                <input style="border:1px solid black" type="date" class="form-control"  id="targetDate" placeholder="Enter Target Date here (dd/MM/yyyy)"/>
+                            </div>
+                    
+                            <div class="col-xs-6">
                                 <label for="expectedDate">Expected Date</label>
-                                <input type="date" class="form-control"  id="expectedDate" placeholder="Enter Expected Date here (dd/MM/yyyy)"/>
+                                <input style="border:1px solid black" type="date" class="form-control"  id="expectedDate" placeholder="Enter Expected Date here (dd/MM/yyyy)"/>
                             </div>
-                        </div>
                     
-                       
+                       </div>
 				   <div class="form-group">
                         <label for="requestTitle" >Priority</label><br/>
-                        <select style="height:45px;width:560px">
+                        <select style="height:45px;width:560px;border: 1px solid black">
 							 <option>Low</option>
 							 <option>Medium</option>
 							 <option>High</option>
@@ -101,14 +131,14 @@
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label for="createdBy">Created By</label>
-                                <input type="text" class="form-control" th:field="*{createdBy}" id="createdBy" placeholder="Enter your name here"/>
+                                <input style="border:1px solid black" type="text" class="form-control" th:field="*{createdBy}" id="createdBy" placeholder="Enter your name here"/>
                             </div>
                         </div>
 
                         <div class="col-xs-6">
                             <div class="form-group">
                                 <label for="createdAt">Created At</label>
-                                <input type="date" class="form-control" th:field="*{createdAt}" id="createdAt" placeholder="Enter Date here (dd/MM/yyyy)"/>
+                                <input style="border:1px solid black" type="date" class="form-control" th:field="*{createdAt}" id="createdAt" placeholder="Enter Date here (dd/MM/yyyy)"/>
                             </div>
                         </div>
 
@@ -124,12 +154,12 @@
                 <!-- Right Column -->
                 <div class="col-sm-6">
 
-                    <div class="form-group well well-lg">
+                 
                         <label for="document">Upload your File</label>
-                        <input type="file" class="form-control" id="document" name="file"/>
+                        <input style="border:1px solid black" type="file" class="form-control" id="document" name="file"/>
                     </div>
 
-                </div>
+                
 
             </form>
 
