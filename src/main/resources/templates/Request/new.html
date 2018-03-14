@@ -47,8 +47,55 @@
                     <div class="form-group">
                         <label for="requestTitle">Request Title</label>
                         <input type="text" class="form-control" th:field="*{requestTitle}" id="requestTitle" placeholder="Enter your request title"/>
+                    </div><br/>
+                    
+             <!--         <div class="form-group">-->
+                    <div class="form-group">
+                        <label for="requestTitle" >Request Type</label><br/>
+                        <select style="height:45px;width:560px">
+ 							<option hidden="">Choose Type</option>
+							 <option>Document Review</option>
+							 <option>Application Review</option>
+							 <option>Release Review</option>
+		                     <option>Build Review</option>				
+							<option>Other Items</option>
+						</select>
                     </div>
-
+                    
+				   <div class="form-group">
+                        <label for="requestTitle" >Content Type</label><br/>
+                        <select style="height:45px;width:560px">
+ 							<option hidden="">Choose Content Type</option>
+							 <option>Text</option>
+							 <option>Document</option>
+							 <option>Link</option>
+						</select>
+                    </div>
+                    
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label for="targetDate">Target Date</label>
+                                <input type="date" class="form-control"  id="targetDate" placeholder="Enter Target Date here (dd/MM/yyyy)"/>
+                            </div>
+                        </div>
+                    
+                      <div class="col-xs-6" >
+                            <div class="form-group">
+                                <label for="expectedDate">Expected Date</label>
+                                <input type="date" class="form-control"  id="expectedDate" placeholder="Enter Expected Date here (dd/MM/yyyy)"/>
+                            </div>
+                        </div>
+                    
+                       
+				   <div class="form-group">
+                        <label for="requestTitle" >Priority</label><br/>
+                        <select style="height:45px;width:560px">
+							 <option>Low</option>
+							 <option>Medium</option>
+							 <option>High</option>
+						</select>
+                    </div>
+                    
                     <div class="row">
 
                         <div class="col-xs-6">
@@ -69,8 +116,8 @@
 
                    
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <button type="submit" class="btn btn-danger">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="border:1px solid black">Submit</button>
+                    <button type="submit" class="btn btn-danger" style="background-color:grey;border:1px solid black">Cancel</button>
 
                 </div>
 
