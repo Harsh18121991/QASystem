@@ -15,12 +15,6 @@
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.css"/>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/main.css"/>
-    <script>
-    	function redirectPage()
-    	{
-    		window.location = "view.html";
-    	}
-    </script>
 </head>
 
 <body>
@@ -100,7 +94,7 @@
 								<td><span th:text="${request.contentType}"></span></td>
 							</tr>
 							<tr>
-								<td><button type="View" class="btn btn-primary" onclick ="redirectPage()">View</button></td>
+								<td><button class="btn btn-primary" onclick ="window.location='view'">View</button></td>
 							</tr>
 						</table>
 					</div>

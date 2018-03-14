@@ -1,5 +1,7 @@
 package com.apar.qa.Controllers;
 
+import java.util.Date;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -40,4 +42,25 @@ public class RequestController {
 		LOG.info("creating request");
 		return "redirect:/dashboard";
 	}
+	
+	@GetMapping("/view")
+	public String viewRequestForm( Model model) {
+		RequestBean bean	=  new RequestBean();
+		Date createdDate = new Date();
+		//createdDate.setDate(2014-03-02);
+		bean.setRequestId("12345");
+		bean.setShortDescription("This is a Sample Request");
+		bean.setDescription("Jane");
+		bean.setContentType("LINK");
+		bean.setCreatedAt(createdDate);
+		model.addAttribute("request", bean);
+		return "Request/view";
+	}
+	
+	@GetMapping("/reply")
+	public String replyRequestForm( Model model) {
+		model.addAttribute("request", new RequestBean());
+		return "Request/reply";
+	}
+
 }
