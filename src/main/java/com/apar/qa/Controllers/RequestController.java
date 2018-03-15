@@ -1,5 +1,6 @@
 package com.apar.qa.Controllers;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.apache.commons.logging.Log;
@@ -21,15 +22,8 @@ public class RequestController {
 
 	@GetMapping("/details")
 	public String Details( @RequestParam(value="requestId", required=false, defaultValue="") String requestId,Model model) {
-		//get the request from the REST service
-	    /*
-		RequestBean request = service.GetById(id);    	
-		//plug request into the Model
-		model.addAttribute("request", request);
-	    */
 		return "Request/details";
 	}
-
 
 	@GetMapping("/new")
 	public String newrequestForm( Model model) {
@@ -43,17 +37,16 @@ public class RequestController {
 		return "redirect:/dashboard";
 	}
 	
+	@GetMapping("/list")
+	public String listrequestForm( Model model) {
+		model.addAttribute("allRequests", getBeanDetails());
+		model.addAttribute("request",new RequestBean());
+		return "Request/listing";
+	}
+	
 	@GetMapping("/view")
 	public String viewRequestForm( Model model) {
-		RequestBean bean	=  new RequestBean();
-		Date createdDate = new Date();
-		//createdDate.setDate(2014-03-02);
-		bean.setRequestId("12345");
-		bean.setShortDescription("This is a Sample Request");
-		bean.setDescription("Jane");
-		bean.setContentType("LINK");
-		bean.setCreatedAt(createdDate);
-		model.addAttribute("request", bean);
+		model.addAttribute("request", getBeanDetails().get(0));
 		return "Request/view";
 	}
 	
@@ -62,5 +55,22 @@ public class RequestController {
 		model.addAttribute("request", new RequestBean());
 		return "Request/reply";
 	}
+	
+	
+	public ArrayList<RequestBean> getBeanDetails()
+	{
+		ArrayList<RequestBean> theList = new ArrayList<>();
+		for (int i = 1;i<=3;++i){
+			RequestBean bean = new RequestBean();
+			bean.setRequestId("12345");
+			bean.setShortDescription("This is a Sample Request");
+			bean.setDescription("Jane");
+			bean.setContentType("LINK");
+			bean.setCreatedBy("1/01/2016");
+			theList.add(bean);
+		}
+		return theList;
+	}
+	
 
 }

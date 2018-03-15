@@ -32,12 +32,7 @@ function showDiv(elem){
 	}
 </script>
 
-
-
 </head>
-
-
-
 <body>
 	<div th:include="topnav::topnav"></div>
 	 
@@ -105,7 +100,7 @@ function showDiv(elem){
                         <input style="border:1px solid black" type="file" class="form-control" id="file" name="file"/>
                     </div>
                     
-                    <div class="form-group">
+                    <div class="form-group row">
                             <div class="col-xs-6">
                                 <label for="targetDate" >Target Date</label>
                                 <input style="border:1px solid black" type="date" class="form-control"  id="targetDate" placeholder="Enter Target Date here (dd/MM/yyyy)"/>
@@ -119,7 +114,7 @@ function showDiv(elem){
                        </div>
 				   <div class="form-group">
                         <label for="requestTitle" >Priority</label><br/>
-                        <select style="height:45px;width:560px;border: 1px solid black">
+                        <select style="height:45px;width:670px;border: 1px solid black">
 							 <option>Low</option>
 							 <option>Medium</option>
 							 <option>High</option>

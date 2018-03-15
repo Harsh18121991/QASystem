@@ -85,13 +85,12 @@
 								<td><span th:text="${request.shortDescription}"></span></td>
 							</tr>
 							<tr>
-								<th>Contact</th>
-								<td><a href="tel:14174444444"><span
-										th:text="${request.createdBy}"></span></a></td>
+								<th>Created Date</th>
+								<td><span th:text="${request.createdBy}"></span></td>
 							</tr>
 							<tr>
 								<th>Content Type</th>
-								<td><span th:text="${request.contentType}"></span></td>
+								<td><a><span th:text="${request.contentType}"></span></a></td>
 							</tr>
 							<tr>
 								<td><button class="btn btn-primary" onclick ="window.location='view'">View</button></td>

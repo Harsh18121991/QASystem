@@ -30,7 +30,7 @@ public class DashboardController {
 		
 		model.addAttribute("allRequests", theList);
 		model.addAttribute("request",new RequestBean());
-		return "Dashboard/listing";
+		return "Dashboard/index";
 	}
 
 	/*
