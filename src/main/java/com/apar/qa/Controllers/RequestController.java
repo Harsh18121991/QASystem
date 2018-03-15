@@ -55,18 +55,25 @@ public class RequestController {
 		model.addAttribute("request", new RequestBean());
 		return "Request/reply";
 	}
-	
+
+	@GetMapping("/status")
+	public String statusRequestForm( Model model) {
+		model.addAttribute("request", getBeanDetails().get(0));
+		return "Request/status";
+	}
 	
 	public ArrayList<RequestBean> getBeanDetails()
 	{
 		ArrayList<RequestBean> theList = new ArrayList<>();
 		for (int i = 1;i<=3;++i){
 			RequestBean bean = new RequestBean();
-			bean.setRequestId("12345");
+			bean.setRequestId("REQ12345");
+			bean.setRequestTitle("Link Request");
 			bean.setShortDescription("This is a Sample Request");
 			bean.setDescription("Jane");
 			bean.setContentType("LINK");
 			bean.setCreatedBy("1/01/2016");
+			bean.setStatus("InProgress");
 			theList.add(bean);
 		}
 		return theList;

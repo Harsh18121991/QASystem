@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Quality System</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.css"/>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/main.css"/>
+
+</head>
+
+
+
+<body>
+	<div th:include="topnav::topnav"></div>
+	 
+    <!-- Body -->
+    <div class="container">
+		
+        <h1>Status Request</h1>
+
+				<div class="col-sm-12">
+
+					<div class="panel panel-default">
+						<div class="panel-heading col-xs-6">
+							Request: <span th:text=" ${request.requestId}"></span>
+						</div>
+						<div class="panel-heading col-xs-6">
+							Short Description: <span th:text=" ${request.shortDescription}"></span>
+						</div>
+						<div class="panel-heading">
+							Name: <span th:text=" ${request.requestTitle}"></span>
+						</div>
+						<div class="panel-heading">
+							Request raised by <span th:text=" ${request.description}"></span> on <span th:text=" ${request.createdBy}"></span>
+						</div>
+						<div class="panel-heading">
+							Status: <span th:text=" ${request.status}"></span>
+						</div>
+					</div>
+
+				</div>
+        
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.js"></script>
+    <script src="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.js"></script>
+
+</body>
+
+</html>

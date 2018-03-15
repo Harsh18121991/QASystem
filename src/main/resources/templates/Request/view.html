@@ -30,7 +30,7 @@
 
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							Request <span th:text="${request.requestId}"></span>
+							Request: <span th:text="${request.requestId}"></span>
 						</div>
 						<table class="table">
 							<tr>
@@ -55,7 +55,11 @@
 								<td><a><span th:text="${request.contentType}"></span></a></td>
 							</tr>
 							<tr>
-								<td><button class="btn btn-primary" onclick ="window.location='reply'">Change Status</button></td>
+								<td style= "width:15%"><button class="btn btn-primary" onclick ="window.location='status'">Check Status</button></td>
+								<td style= "width:15%"><button class="btn btn-primary" onclick ="window.location='reply'">Reply</button></td>
+								<td style= "width:15%"><button class="btn btn-primary" onclick ="window.location='new'">Edit</button></td>
+								<td style= "width:15%"><button class="btn btn-primary" onclick ="window.location=''">Delete</button></td>
+
 								
 							</tr>
 						</table>

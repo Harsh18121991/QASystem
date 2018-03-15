@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/main.css"/>
 	
-<script>
+ <script>
 window.onload = function() {
 	  document.getElementById('textbox').style.display = 'none';
 	  document.getElementById('documentbox').style.display = 'none';
@@ -31,12 +31,7 @@ function showDiv(elem){
 	   }
 	}
 </script>
-
-
-
 </head>
-
-
 
 <body>
 	<div th:include="topnav::topnav"></div>
@@ -49,42 +44,54 @@ function showDiv(elem){
 
         <div class="row">
 
-            <form action="#" th:action="@{/new}" th:object="${request}"  method="post" enctype="multipart/form-data">
-
-                <!-- Left Column -->
+            <form action="#" th:action="@{/reply}" th:object="${request}"  method="post" enctype="multipart/form-data">
+		            <div class="form-group col-xs-4">
+                        <label for="status">Status</label>
+                        <select class="form-control" id="status">
+                        		  <option value="select">Select</option>
+								  <option value="requested">Requested</option>
+								  <option value="inProgress">InProgress</option>
+								  <option value="assigned">Assigned</option>
+								  <option value="reassigned">ReAssigned</option>
+								  <option value="escalated">Escalated</option>
+								  <option value="rejected">Rejected</option>
+								  <option value="closed">Closed</option>
+								  <option value="deleted">Deleted</option></select>
+                    </div>
+		            <div class="form-group col-xs-4">
+                        <label for="tags">Tags</label>
+                        <input type="text" class="form-control"  id="tags" placeholder="Tags"/>
+                    </div>
+		            <div class="form-group col-xs-4">
+                        <label for="tags">Remarks</label>
+                        <input type="text" class="form-control"  id="remarks" placeholder="remarks"/>
+                    </div>
                 <div class="col-sm-6">
 
-                    <div class="form-group">
-                        <label for="description" >Description</label>
-                        <textarea style="border: 1px solid black" class="form-control" th:field="*{description}" rows="3" id="description"></textarea>
+				   <div class="form-group" id="contentType" >
+                        <label for="requestTitle" >Content Type</label><br/>
+                        <select style="height:45px;width:675px;border:1px solid black" onchange="showDiv(this)">
+ 							<option hidden="">Choose Content Type</option>
+							 <option>Text</option>
+							 <option>Document</option>
+							 <option>Link</option>
+						</select>
                     </div>
-
-                    <div class="form-group">
-                        <label for="shortDescription">Short Description</label>
-                        <input style="border: 1px solid black" type="text" class="form-control" th:field="*{shortDescription}" id="shortDescription" placeholder="Describe your review request here"/>
+                     <div  id='textbox' class="form-group">
+                        <label for="description">Content Text</label>
+                        <textarea style="border:1px solid black" class="form-control"  rows="3" id="text"></textarea>
                     </div>
-
-                    <div class="form-group">
-                        <label for="requestTitle">Request Title</label>
-                        <input style="border: 1px solid black" type="text" class="form-control" th:field="*{requestTitle}" id="requestTitle" placeholder="Enter your request title"/>
-                    </div><br/>
+                    
+                     <div id='documentbox' class="form-group">
+                        <label for="document">Choose File</label>
+                        <input style="border:1px solid black" type="file" class="form-control" id="file" name="file"/>
+                    </div>   <br/>
 
 
                     <button type="submit" class="btn btn-primary" style="border:1px solid black">Submit</button>
                     <button type="submit" class="btn btn-danger" style="background-color:grey;border:1px solid black">Cancel</button>
 
                 </div>
-
-                <!-- Right Column -->
-                <div class="col-sm-6">
-
-                 
-                        <label for="document">Upload your File</label>
-                        <input style="border:1px solid black" type="file" class="form-control" id="document" name="file"/>
-                    </div>
-
-                
-
             </form>
 
         </div>
