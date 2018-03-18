@@ -1,4 +1,4 @@
-package com.apar.qa.Controllers;
+package com.apar.qa.controllers;
 
 import java.util.ArrayList;
 

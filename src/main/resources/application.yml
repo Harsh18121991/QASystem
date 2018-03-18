@@ -11,10 +11,19 @@ spring:
     name: QA System App
   profiles:
     active: default
+  datasource:
+    url: jdbc:sqlserver://43.224.136.157:2499;database=qa_system_dev
+    username: qa_user
+    password: pass@word2
+    driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+  main:
+    banner-mode: off
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 server:
   port: 8080
-
 
 
 
