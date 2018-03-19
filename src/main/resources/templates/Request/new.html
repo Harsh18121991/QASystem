@@ -13,31 +13,103 @@
     <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.css"/>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/main.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	
 	
 <script>
+//<![CDATA[
 window.onload = function() {
 	  document.getElementById('textbox').style.display = 'none';
 	  document.getElementById('documentbox').style.display = 'none';
+	 
+	  document.getElementById('textcontent').style.display = 'none';
+	  $("#expectedDate").on('change', function() {
+		    var startDate = document.getElementById("targetDate").value;
+		    var endDate = document.getElementById("expectedDate").value;
+
+		    if ((Date.parse(endDate) <= Date.parse(startDate))) {
+		      alert("End date should be greater than Start date");
+		      document.getElementById("expectedDate").value = "";
+		    }
+		  });
 	}
 
 function showDiv(elem){
 	   if(elem.value == 'Text'){
 		   document.getElementById('documentbox').style.display = 'none';
+		   document.getElementById('textcontent').style.display = 'none';
 		   document.getElementById('textbox').style.display = "block";
 	   }
 	   if(elem.value == 'Document'){
 		   document.getElementById('textbox').style.display = 'none';
+		   document.getElementById('textcontent').style.display = 'none';
 		   document.getElementById('documentbox').style.display = "block";
 	   }
+	   if(elem.value == 'Link'){
+		   document.getElementById('textbox').style.display = 'none';
+		   document.getElementById('textcontent').style.display = "block";
+		   document.getElementById('documentbox').style.display = 'none';
+	   }
+	   
 	}
-</script>
+
+
+        var specialKeys = new Array();
+        specialKeys.push(8); //Backspace
+        specialKeys.push(9); //Tab
+        specialKeys.push(46); //Delete
+        specialKeys.push(36); //Home
+        specialKeys.push(35); //End
+        specialKeys.push(37); //Left
+        specialKeys.push(39); //Right
+        function IsAlphaNumeric(e) {
+        	//alert("function called");
+           var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+            var ret = ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+            document.getElementById("requestTitle").style.display = ret ? "inline" : alert("Invalid Input..!!");
+           if(ret==false){
+            document.getElementById("requestTitle").value= '';}
+            return ret;
+        } 
+        
+     // ]]>
+     
+        function descriptionLength(maxchars) {
+        	 if(description.value.length > maxchars) {
+        	   alert('Too much data in the text box! Please remove '+
+        	    (description.value.length - maxchars)+ ' characters');
+        	  
+        	   document.getElementById("description").value= '';
+        	   return false;
+        	 }
+        	 else
+        	   return true;
+        	 }
+        
+        function shortDescriptionLength(maxchars) {
+       	 if(shortDescription.value.length > maxchars) {
+       	   alert('Too much data in the text box! Please remove '+
+       	    (shortDescription.value.length - maxchars)+ ' characters');
+       	  
+       	   document.getElementById("shortDescription").value= '';
+       	   return false;
+       	 }
+       	 else
+       	   return true;
+       	 }
+     
+      
+  
+
+     
+    </script>
 
 </head>
 <body>
 	<div th:include="topnav::topnav"></div>
 	 
     <!-- Body -->
-    <div class="container" style="width:90%;">
+    <div class="container" style="width:90%">
 		
         <h1>Raise a Request</h1>
 
@@ -47,27 +119,23 @@ function showDiv(elem){
             <form action="#" th:action="@{/new}" th:object="${request}"  method="post" enctype="multipart/form-data">
 
                 <!-- Left Column -->
-                <div class="col-sm-6">
+                <div class="col-xs-12">
 
-                    <div class="form-group">
-                        <label for="description" >Description</label>
-                        <textarea style="border: 1px solid black" class="form-control" th:field="*{description}" rows="3" id="description"></textarea>
+                    <div class="form-group col-xs-6">
+                        <label for="requestTitle">Request Title (Max 250 Characters)</label>
+                        <input style="border: 1px solid black" type="text" class="form-control" th:field="*{requestTitle}" id="requestTitle" placeholder="Enter your request title" onkeypress="return IsAlphaNumeric(event)" />
                     </div>
-
-                    <div class="form-group">
-                        <label for="shortDescription">Short Description</label>
-                        <input style="border: 1px solid black" type="text" class="form-control" th:field="*{shortDescription}" id="shortDescription" placeholder="Describe your review request here"/>
+                   
+                   <div class="form-group col-xs-6">
+                        <label for="shortDescription">Short Description (Max 250 Characters)</label>
+                        <input name="shortDescription" style="border:1px solid black" type="text" class="form-control" th:field="*{shortDescription}" id="shortDescription" placeholder="Describe your review request here" onkeypress="shortDescriptionLength(255);"/>
                     </div>
+                   
 
-                    <div class="form-group">
-                        <label for="requestTitle">Request Title</label>
-                        <input style="border: 1px solid black" type="text" class="form-control" th:field="*{requestTitle}" id="requestTitle" placeholder="Enter your request title"/>
-                    </div><br/>
-                    
              <!--         <div class="form-group">-->
-                    <div class="form-group">
+                    <div class="form-group col-xs-6">
                         <label for="requestTitle" >Request Type</label><br/>
-                        <select style="height:45px;width:675px;border:1px solid black" >
+                        <select style="border:1px solid black" class="form-control" >
  							<option hidden="">Choose Type</option>
 							 <option>Document Review</option>
 							 <option>Application Review</option>
@@ -77,31 +145,18 @@ function showDiv(elem){
 						</select>
                     </div>
                     
-				   <div class="form-group" id="contentType" >
-                        <label for="requestTitle" >Content Type</label><br/>
-                        <select style="height:45px;width:675px;border:1px solid black" onchange="showDiv(this)">
- 							<option hidden="">Choose Content Type</option>
-							 <option>Text</option>
-							 <option>Document</option>
-							 <option>Link</option>
+				   <div class="form-group col-xs-6">
+                        <label for="requestTitle" >Priority</label><br/>
+                        <select style="border: 1px solid black" class="form-control">
+							 <option>Low</option>
+							 <option>Medium</option>
+							 <option>High</option>
 						</select>
                     </div>
+                   
                     
-                    
-        
-                    
-                     <div  id='textbox' class="form-group">
-                        <label for="description">Content Text</label>
-                        <textarea style="border:1px solid black" class="form-control"  rows="3" id="text"></textarea>
-                    </div>
-                    
-                     <div id='documentbox' class="form-group">
-                        <label for="document">Choose File</label>
-                        <input style="border:1px solid black" type="file" class="form-control" id="file" name="file"/>
-                    </div>
-                    
-                    <div class="form-group row">
-                            <div class="col-xs-6">
+                          <div class="form-group" style="margin-top:20px">
+                            <div class="col-xs-6" >
                                 <label for="targetDate" >Target Date</label>
                                 <input style="border:1px solid black" type="date" class="form-control"  id="targetDate" placeholder="Enter Target Date here (dd/MM/yyyy)"/>
                             </div>
@@ -112,49 +167,71 @@ function showDiv(elem){
                             </div>
                     
                        </div>
-				   <div class="form-group">
-                        <label for="requestTitle" >Priority</label><br/>
-                        <select style="height:45px;width:670px;border: 1px solid black">
-							 <option>Low</option>
-							 <option>Medium</option>
-							 <option>High</option>
-						</select>
+                    <div class="form-group" style="margin-right:-10px" >
+                        <label for="description" style="margin-top: 20px;margin-left: 17px" >Description</label>
+                        <textarea name="description" style="border: 1px solid black;margin-left:15px;width:97.2%" class="form-control" th:field="*{description}" rows="3" id="description"  onkeypress = "return descriptionLength(500);" ></textarea>
                     </div>
                     
+				 <div class="content" style="height:220px;border: 1px ">
+						 <div class="form-group" id="contentType"  >
+                        <label style="margin-top:10px;margin-left:16px" for="requestTitle;margin-left: 16px" >Content Type</label><br/>
+                        <select style="border:1px solid black;margin-left:14px;width: 98%" class="form-control"  onchange="showDiv(this)">
+ 							<option hidden="">Choose Content Type</option>
+							 <option>Text</option>
+							 <option>Document</option>
+							 <option>Link</option>
+						</select>
+                    </div>
+     
+                     <div  id='textbox' class="form-group">
+                        <label for="description" style="margin-left:16px">Content Text</label>
+                        <textarea style="border:1px solid black;margin-left:14px;width: 98%" class="form-control"  rows="3" id="text"></textarea>
+                    </div>
+                    
+                     <div id='documentbox' class="form-group">
+                        <label for="document" style="margin-left:16px">Choose File</label>
+                        <input style="border:1px solid black;margin-left:14px;width: 98%" type="file" class="form-control" id="file" name="file"/>
+                    </div>
+                    
+                    <div class="form-group" id="textcontent">
+                        <label for="shortDescription" style="margin-left:16px">Content Link</label>
+                        <input style="border: 1px solid black;margin-left:14px;width: 98%" type="text" class="form-control"  id="contentLink" placeholder="Provide the Path"/>
+                    </div>
+                   </div>
+                    
+                     
                     <div class="row">
 
-                        <div class="col-xs-6">
-                            <div class="form-group">
-                                <label for="createdBy">Created By</label>
-                                <input style="border:1px solid black" type="text" class="form-control" th:field="*{createdBy}" id="createdBy" placeholder="Enter your name here"/>
-                            </div>
-                        </div>
-
-                        <div class="col-xs-6">
-                            <div class="form-group">
+                       <div class="">
+                            <div class="form-group" style="display:none">
                                 <label for="createdAt">Created At</label>
                                 <input style="border:1px solid black" type="date" class="form-control" th:field="*{createdAt}" id="createdAt" placeholder="Enter Date here (dd/MM/yyyy)"/>
                             </div>
                         </div>
-
+                       
+                       
+                        <div class="col-xs-6">
+                            <div class="form-group">
+                                <label for="createdBy" style="display: none">Created By</label>
+                                <input style="border:1px solid black;display:none" type="text" class="form-control" th:field="*{createdBy}" id="createdBy" placeholder="Enter your name here"/>
+                            </div>
+                        </div>
+                       
                     </div>
 
-                   
-
-                    <button type="submit" class="btn btn-primary" style="border:1px solid black">Submit</button>
-                    <button type="submit" class="btn btn-danger" style="background-color:grey;border:1px solid black">Cancel</button>
+                    <button type="submit" class="btn btn-primary" style="border:1px solid black;width:100px;color:black;margin-bottom:20px">Submit</button>
+                    <button type="reset" class="btn btn-danger" value="Reset" onClick="window.location.reload()" style="background-color:white;border:1px solid black;width:100px;color:black;margin-left:80px;margin-bottom:20px">Cancel</button>
 
                 </div>
 
-                <!-- Right Column -->
+               <!--   Right Column 
                 <div class="col-sm-6">
 
                  
                         <label for="document">Upload your File</label>
                         <input style="border:1px solid black" type="file" class="form-control" id="document" name="file"/>
                     </div>
-
-                
+ -->
 
             </form>
 
@@ -167,5 +244,4 @@ function showDiv(elem){
     <script src="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.js"></script>
 
 </body>
-
 </html>
