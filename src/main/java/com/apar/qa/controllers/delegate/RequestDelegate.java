@@ -1,4 +1,4 @@
-package com.apar.qa.controllers.iface;
+package com.apar.qa.controllers.delegate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 
-public interface ActionControllerIface {
+public interface RequestDelegate {
 
 	
 	@PostMapping("/submitRequest")
