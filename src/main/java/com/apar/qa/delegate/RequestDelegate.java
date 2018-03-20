@@ -1,4 +1,4 @@
-package com.apar.qa.controllers.delegate;
+package com.apar.qa.delegate;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface RequestDelegate {
 
 	
-	@PostMapping("/submitRequest")
-	public String submitRequestData(HttpServletRequest httpRequest,Model model);
+	//@PostMapping("/submitRequest")
+	public String submitRequestData(HttpServletRequest httpRequest,HttpServletResponse httpResponse);
 		
 		
 	}
