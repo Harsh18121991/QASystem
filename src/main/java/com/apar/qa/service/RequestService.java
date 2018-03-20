@@ -1,66 +1,74 @@
-package com.apar.qa.daoImpl;
+package com.apar.qa.service;
 
 import java.util.Date;
-import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.stereotype.Service;
 
-import com.apar.qa.QAApplication;
+import com.apar.qa.dao.MasterValuesDAO;
 import com.apar.qa.dao.RequestMasterDAO;
+import com.apar.qa.dao.TagMasterDAO;
+import com.apar.qa.models.MasterValuesEntity;
 import com.apar.qa.models.RequestMasterEntity;
+import com.apar.qa.models.TagMasterEntity;
 
-@SpringBootApplication
-public class RequestBeanDaoImpl implements CommandLineRunner{
+@Service
+public class RequestService {
 	
 	@Autowired
-	private RequestMasterDAO requestRepository;
+	private RequestMasterDAO requestMasterDAO;
+	
+	@Autowired
+	private MasterValuesDAO masterValuesDAO;
+	
+	@Autowired
+	private TagMasterDAO tagMasterDAO;
 	
 	public void saveRequestBean() {
 		RequestMasterEntity requestBean = new RequestMasterEntity();
-		requestBean.setRequestId("REQ000002");
+		requestBean.setRequestId("REQ000003");
 		requestBean.setRequestTitle("Document Review");
 		requestBean.setShortDescription("short");
 		requestBean.setDescription("long");
-		requestBean.setRequestType("MAS000016");
-		requestBean.setContentType("MAS000002");
-		requestBean.setStatus("MAS000008");
+		MasterValuesEntity requestType = masterValuesDAO.findById("MAS000016");
+		requestBean.setRequestType(requestType);
+		MasterValuesEntity contentType = masterValuesDAO.findById("MAS000002");
+		requestBean.setContentType(contentType);
+		MasterValuesEntity status = masterValuesDAO.findById("MAS000008");
+		requestBean.setStatus(status);
 		requestBean.setCreatedBy("Ajay");
 		requestBean.setCreatedAt(new Date());
 		requestBean.setOwner("Harsh");
-		requestBean.setTags("TAG000001");
-		requestBean.setPriority("MAS000004");
+		TagMasterEntity tags = tagMasterDAO.findByTagId("TAG000001");
+		requestBean.setTags(tags);
+		MasterValuesEntity priority = masterValuesDAO.findById("MAS000004");
+		requestBean.setPriority(priority);
 		requestBean.setTargetClosureDate(new Date());
 		requestBean.setExpectedReviewDate(new Date());
-		System.out.println("Before Saving Object:::::: "+requestRepository);
-		requestRepository.save(requestBean);
-		System.out.println("After Saving Object::::::");
+		requestMasterDAO.save(requestBean);
+		System.out.println("Object Saved Successfully::::::");
 	}
 	
-	  @Override
+	  /*@Override
 	  public void run(String... args) throws Exception {
 
 
 	      System.out.println("\n1.findAll()...");
-	      for (RequestMasterEntity requestBean : requestRepository.findAll()) {
+	      for (RequestMasterEntity requestBean : requestMasterDAO.findAll()) {
 	          System.out.println(requestBean);
 	      }
 
 	      System.out.println("\n2.findByRequestTitle(String requestTitle)");
-	      for (RequestMasterEntity requestBean : requestRepository.findByRequestTitle("harsh")) {
+	      for (RequestMasterEntity requestBean : requestMasterDAO.findByRequestTitle("harsh")) {
 	          System.out.println(requestBean);
 	      }
 
 	      System.out.println("\n3.findByRequestId(String requestId)");
-	      for (RequestMasterEntity requestBean : requestRepository.findByRequestId("12345")) {
-	          System.out.println(requestBean);
-	      }
+	      System.out.println(requestMasterDAO.findByRequestId("REQ000003"));
 
 	      // For Stream, need @Transactional
 	      System.out.println("\n4.findByRequestTitleReturnStream(@Param(\"requestTitle\") String requestTitle)..");
-	      try (Stream<RequestMasterEntity> stream = requestRepository.findByRequestTitleReturnStream("ajay")) {
+	      try (Stream<RequestMasterEntity> stream = requestMasterDAO.findByRequestTitleReturnStream("ajay")) {
 	          stream.forEach(x -> System.out.println(x));
 	      }
 
@@ -76,10 +84,5 @@ public class RequestBeanDaoImpl implements CommandLineRunner{
 	      System.out.println("Done!");
 	      //saveRequestBean();
 	      //System.exit(0);
-	  }
-	  
-	  public static void main(String[] args) {
-			//SpringApplication.run(QAApplication.class, args);
-		}
-	
+	  }	*/
 }

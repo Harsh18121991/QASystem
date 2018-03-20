@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -19,14 +22,24 @@ public class RequestMasterEntity implements Serializable {
 	String requestTitle;
 	String shortDescription;
 	String description;
-	String requestType;
-	String contentType;
-	String status;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="requestType")
+	MasterValuesEntity requestType;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="contentType")
+	MasterValuesEntity contentType;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="status")
+	MasterValuesEntity status;
 	String createdBy;
 	Date createdAt;
 	String owner;
-	String tags;
-	String priority;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="tags")
+	TagMasterEntity tags;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="priority")
+	MasterValuesEntity priority;
 	Date targetClosureDate;
 	Date expectedReviewDate;
 
@@ -54,22 +67,22 @@ public class RequestMasterEntity implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public String getRequestType() {
+	public MasterValuesEntity getRequestType() {
 		return requestType;
 	}
-	public void setRequestType(String requestType) {
+	public void setRequestType(MasterValuesEntity requestType) {
 		this.requestType = requestType;
 	}
-	public String getContentType() {
+	public MasterValuesEntity getContentType() {
 		return contentType;
 	}
-	public void setContentType(String contentType) {
+	public void setContentType(MasterValuesEntity contentType) {
 		this.contentType = contentType;
 	}
-	public String getStatus() {
+	public MasterValuesEntity getStatus() {
 		return status;
 	}
-	public void setStatus(String status) {
+	public void setStatus(MasterValuesEntity status) {
 		this.status = status;
 	}
 	public String getCreatedBy() {
@@ -87,27 +100,21 @@ public class RequestMasterEntity implements Serializable {
 	public String getOwner() {
 		return owner;
 	}
-
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-
-	public String getTags() {
+	public TagMasterEntity getTags() {
 		return tags;
 	}
-
-	public void setTags(String tags) {
+	public void setTags(TagMasterEntity tags) {
 		this.tags = tags;
 	}
-
-	public String getPriority() {
+	public MasterValuesEntity getPriority() {
 		return priority;
 	}
-
-	public void setPriority(String priority) {
+	public void setPriority(MasterValuesEntity priority) {
 		this.priority = priority;
 	}
-
 	public Date getTargetClosureDate() {
 		return targetClosureDate;
 	}
@@ -124,15 +131,15 @@ public class RequestMasterEntity implements Serializable {
 		this.expectedReviewDate = expectedReviewDate;
 	}
 	
-	public void setProperties(Map<String, String> beanproperties) {
-		setRequestId(beanproperties.get("requestId"));
-		setRequestTitle(beanproperties.get("requestTitle"));
-		setShortDescription(beanproperties.get("shortDescription"));
-		setDescription(beanproperties.get("description"));
-		setRequestType(beanproperties.get("requestType"));
-		setContentType(beanproperties.get("contentType"));
-		setStatus(beanproperties.get("status"));
-		setCreatedBy(beanproperties.get("createdBy"));
+	public void setProperties(Map<String, Object> beanproperties) {
+		setRequestId((String) beanproperties.get("requestId"));
+		setRequestTitle((String) beanproperties.get("requestTitle"));
+		setShortDescription((String) beanproperties.get("shortDescription"));
+		setDescription((String) beanproperties.get("description"));
+		setRequestType((MasterValuesEntity) beanproperties.get("requestType"));
+		setContentType((MasterValuesEntity) beanproperties.get("contentType"));
+		setStatus((MasterValuesEntity) beanproperties.get("status"));
+		setCreatedBy((String) beanproperties.get("createdBy"));
 		setCreatedAt(new Date());
 	}
 	 

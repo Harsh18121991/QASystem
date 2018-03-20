@@ -2,8 +2,11 @@ package com.apar.qa.models;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -16,8 +19,10 @@ public class MasterValuesEntity implements Serializable{
 	@Id
 	String id;
 	String name;
-	String value;
-	String groupId;	
+	String value;	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="groupId", referencedColumnName="groupId")
+	MasterValueGroupsEntity groupId;	
 	String status;
 	
 	public String getId() {
@@ -38,10 +43,10 @@ public class MasterValuesEntity implements Serializable{
 	public void setValue(String value) {
 		this.value = value;
 	}
-	public String getGroupId() {
+	public MasterValueGroupsEntity getGroupId() {
 		return groupId;
 	}
-	public void setGroupId(String groupId) {
+	public void setGroupId(MasterValueGroupsEntity groupId) {
 		this.groupId = groupId;
 	}
 	public String getStatus() {

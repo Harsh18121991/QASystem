@@ -1,5 +1,6 @@
 package com.apar.qa.dao;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -10,14 +11,14 @@ import org.springframework.data.repository.query.Param;
 import com.apar.qa.models.RequestMasterEntity;
 
 
-public interface RequestMasterDAO extends CrudRepository<RequestMasterEntity, Long> {
+public interface RequestMasterDAO extends CrudRepository<RequestMasterEntity, Serializable> {
 
     List<RequestMasterEntity> findByRequestTitle(String requestTitle);
 
     @Query("select c from RequestMasterEntity c where c.requestTitle = :requestTitle")
     Stream<RequestMasterEntity> findByRequestTitleReturnStream(@Param("requestTitle") String requestTitle);
 
-    List<RequestMasterEntity> findByRequestId(String requestId);
+    RequestMasterEntity findByRequestId(String requestId);
 
     //@Query("select c from Customer c")
     //Stream<Customer> findAllAndStream();

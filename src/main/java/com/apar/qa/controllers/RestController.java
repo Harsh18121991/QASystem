@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.apar.qa.daoImpl.RequestBeanDaoImpl;
+import com.apar.qa.service.RequestService;
 
 @Controller
 @RequestMapping(value = "/ajay/", produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestController {
 	
 	@Autowired
-	private RequestBeanDaoImpl requestBeanDaoImpl;
+	private RequestService requestService;
 	
 	
 	@RequestMapping(value = "/students/{studentId}/courses", method = RequestMethod.GET)
@@ -26,11 +26,11 @@ public class RestController {
 		return "{\"Name\": \"Ajay Jain\"}";
 	}
 	
-	@RequestMapping(value = "/requests/{studentId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/requests/{studentId}", method = RequestMethod.POST)
 	@ResponseBody
 	public String addUserRequest(@PathVariable String studentId) {
 		System.out.println("Student Id: "+studentId);
-		requestBeanDaoImpl.saveRequestBean();
+		requestService.saveRequestBean();
 		return "{\"Name\": \"Ajay Jain\"}";
 	}
 	

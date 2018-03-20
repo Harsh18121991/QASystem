@@ -3,8 +3,11 @@ package com.apar.qa.models;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
@@ -17,31 +20,41 @@ public class RequestContentsEntity implements Serializable{
 	
 	@Id
 	String contentId;
-	String requestId;
-	String HistoryId;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="requestId")
+	RequestMasterEntity requestId;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="historyId")
+	RequestHistoryEntity historyId;
 	String content;
-	String contentType;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="contentType")
+	MasterValuesEntity contentType;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="tags")
+	TagMasterEntity tags;
 	String createdBy;
 	Date createdAt;
-	String tags;
+
 	
-	public String getRequestId() {
-		return requestId;
-	}
-	public void setRequestId(String requestId) {
-		this.requestId = requestId;
-	}
-	public String getHistoryId() {
-		return HistoryId;
-	}
-	public void setHistoryId(String historyId) {
-		HistoryId = historyId;
-	}
+	
 	public String getContentId() {
 		return contentId;
 	}
 	public void setContentId(String contentId) {
 		this.contentId = contentId;
+	}
+	public RequestMasterEntity getRequestId() {
+		return requestId;
+	}
+	public void setRequestId(RequestMasterEntity requestId) {
+		this.requestId = requestId;
+	}
+	public RequestHistoryEntity getHistoryId() {
+		return historyId;
+	}
+	public void setHistoryId(RequestHistoryEntity historyId) {
+		this.historyId = historyId;
 	}
 	public String getContent() {
 		return content;
@@ -49,10 +62,10 @@ public class RequestContentsEntity implements Serializable{
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getContentType() {
+	public MasterValuesEntity getContentType() {
 		return contentType;
 	}
-	public void setContentType(String contentType) {
+	public void setContentType(MasterValuesEntity contentType) {
 		this.contentType = contentType;
 	}
 	public String getCreatedBy() {
@@ -67,10 +80,10 @@ public class RequestContentsEntity implements Serializable{
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-	public String getTags() {
+	public TagMasterEntity getTags() {
 		return tags;
 	}
-	public void setTags(String tags) {
+	public void setTags(TagMasterEntity tags) {
 		this.tags = tags;
 	}
 	

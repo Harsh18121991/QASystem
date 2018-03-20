@@ -3,8 +3,11 @@ package com.apar.qa.models;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,16 +18,26 @@ public class RequestHistoryEntity  implements Serializable{
 
 	@Id
 	String historyId;
-	String requestId;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="requestId")
+	RequestMasterEntity requestId;
 	String createdBy;
 	Date createdAt;
-	String requestInitialStatus;
-	String requestEndStatus;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="requestInitialStatus")
+	MasterValuesEntity requestInitialStatus;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="requestEndStatus")
+	MasterValuesEntity requestEndStatus;
 	String remarks;
-	String tags;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="tags")
+	TagMasterEntity tags;
 	String assigneeFrom;
 	String assigneeTo;
-	String contentType;
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="contentType")
+	MasterValuesEntity contentType;
 	
 	public String getHistoryId() {
 		return historyId;
@@ -32,10 +45,10 @@ public class RequestHistoryEntity  implements Serializable{
 	public void setHistoryId(String historyId) {
 		this.historyId = historyId;
 	}
-	public String getRequestId() {
+	public RequestMasterEntity getRequestId() {
 		return requestId;
 	}
-	public void setRequestId(String requestId) {
+	public void setRequestId(RequestMasterEntity requestId) {
 		this.requestId = requestId;
 	}
 	public String getCreatedBy() {
@@ -50,16 +63,16 @@ public class RequestHistoryEntity  implements Serializable{
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-	public String getRequestInitialStatus() {
+	public MasterValuesEntity getRequestInitialStatus() {
 		return requestInitialStatus;
 	}
-	public void setRequestInitialStatus(String requestInitialStatus) {
+	public void setRequestInitialStatus(MasterValuesEntity requestInitialStatus) {
 		this.requestInitialStatus = requestInitialStatus;
 	}
-	public String getRequestEndStatus() {
+	public MasterValuesEntity getRequestEndStatus() {
 		return requestEndStatus;
 	}
-	public void setRequestEndStatus(String requestEndStatus) {
+	public void setRequestEndStatus(MasterValuesEntity requestEndStatus) {
 		this.requestEndStatus = requestEndStatus;
 	}
 	public String getRemarks() {
@@ -68,10 +81,10 @@ public class RequestHistoryEntity  implements Serializable{
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
 	}
-	public String getTags() {
+	public TagMasterEntity getTags() {
 		return tags;
 	}
-	public void setTags(String tags) {
+	public void setTags(TagMasterEntity tags) {
 		this.tags = tags;
 	}
 	public String getAssigneeFrom() {
@@ -86,12 +99,13 @@ public class RequestHistoryEntity  implements Serializable{
 	public void setAssigneeTo(String assigneeTo) {
 		this.assigneeTo = assigneeTo;
 	}
-	public String getContentType() {
+	public MasterValuesEntity getContentType() {
 		return contentType;
 	}
-	public void setContentType(String contentType) {
+	public void setContentType(MasterValuesEntity contentType) {
 		this.contentType = contentType;
 	}
+	
 
 	
 }
