@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.apar.qa.models.RequestMasterEntity;
+import com.apar.qa.beans.RequestMasterBean;
 
 
 @Controller
@@ -17,9 +17,9 @@ public class DashboardController {
     */		
 	@RequestMapping("/dashboard")
 	public String dashboard(Model model) {
-		ArrayList<RequestMasterEntity> theList = new ArrayList<>();
+		ArrayList<RequestMasterBean> theList = new ArrayList<>();
 		for (int i = 1;i<=3;++i){
-			RequestMasterEntity bean = new RequestMasterEntity();
+			RequestMasterBean bean = new RequestMasterBean();
 			bean.setRequestId("REQ12345");
 			bean.setShortDescription("This is a Sample Request");
 			bean.setDescription("Jane");
@@ -29,7 +29,7 @@ public class DashboardController {
 		}
 		
 		model.addAttribute("allRequests", theList);
-		model.addAttribute("request",new RequestMasterEntity());
+		model.addAttribute("request",new RequestMasterBean());
 		return "Dashboard/index";
 	}
 

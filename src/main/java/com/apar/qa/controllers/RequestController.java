@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.apar.qa.models.RequestMasterEntity;
+import com.apar.qa.beans.RequestMasterBean;
 
 @Controller
 public class RequestController {
@@ -27,12 +27,12 @@ public class RequestController {
 
 	@GetMapping("/new")
 	public String newrequestForm( Model model) {
-		model.addAttribute("request", new RequestMasterEntity());
+		model.addAttribute("request", new RequestMasterBean());
 		return "Request/new";
 	}
 
 	@PostMapping("/new")
-	public String Create(@ModelAttribute RequestMasterEntity request,@RequestParam("file") MultipartFile imageFile) {
+	public String Create(@ModelAttribute RequestMasterBean request,@RequestParam("file") MultipartFile imageFile) {
 		LOG.info("creating request");
 		return "redirect:/dashboard";
 	}
@@ -40,7 +40,7 @@ public class RequestController {
 	@GetMapping("/list")
 	public String listrequestForm( Model model) {
 		model.addAttribute("allRequests", getBeanDetails());
-		model.addAttribute("request",new RequestMasterEntity());
+		model.addAttribute("request",new RequestMasterBean());
 		return "Request/listing";
 	}
 	
@@ -52,7 +52,7 @@ public class RequestController {
 	
 	@GetMapping("/reply")
 	public String replyRequestForm( Model model) {
-		model.addAttribute("request", new RequestMasterEntity());
+		model.addAttribute("request", new RequestMasterBean());
 		return "Request/reply";
 	}
 
@@ -62,11 +62,11 @@ public class RequestController {
 		return "Request/status";
 	}
 	
-	public ArrayList<RequestMasterEntity> getBeanDetails()
+	public ArrayList<RequestMasterBean> getBeanDetails()
 	{
-		ArrayList<RequestMasterEntity> theList = new ArrayList<>();
+		ArrayList<RequestMasterBean> theList = new ArrayList<>();
 		for (int i = 1;i<=3;++i){
-			RequestMasterEntity bean = new RequestMasterEntity();
+			RequestMasterBean bean = new RequestMasterBean();
 			bean.setRequestId("REQ12345");
 			bean.setRequestTitle("Link Request");
 			bean.setShortDescription("This is a Sample Request");
