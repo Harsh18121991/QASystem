@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface RequestDelegate {
 
 	
-	//@PostMapping("/submitRequest")
-	public String submitRequestData(HttpServletRequest httpRequest,HttpServletResponse httpResponse);
+	@PostMapping("/submitRequest")
+	public String submitRequestData(HttpServletRequest httpRequest,HttpServletResponse httpResponse,Model model);
 		
 		
 	}
