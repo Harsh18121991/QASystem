@@ -1,23 +1,26 @@
 package com.apar.qa.daoImpl;
 
 import java.util.Date;
-
-import javax.transaction.Transactional;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate5.HibernateTemplate;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.apar.qa.models.RequestBean;
+import com.apar.qa.QAApplication;
+import com.apar.qa.dao.RequestMasterDAO;
+import com.apar.qa.models.RequestMasterEntity;
 
-@Transactional
-public class RequestBeanDaoImpl {
+@SpringBootApplication
+public class RequestBeanDaoImpl implements CommandLineRunner{
 	
 	@Autowired
-	private HibernateTemplate  hibernateTemplate;
+	private RequestMasterDAO requestRepository;
 	
 	public void saveRequestBean() {
-		RequestBean requestBean = new RequestBean();
-		requestBean.setRequestId("REQ000001");
+		RequestMasterEntity requestBean = new RequestMasterEntity();
+		requestBean.setRequestId("REQ000002");
 		requestBean.setRequestTitle("Document Review");
 		requestBean.setShortDescription("short");
 		requestBean.setDescription("long");
@@ -31,33 +34,33 @@ public class RequestBeanDaoImpl {
 		requestBean.setPriority("MAS000004");
 		requestBean.setTargetClosureDate(new Date());
 		requestBean.setExpectedReviewDate(new Date());
-		
-		hibernateTemplate.save(requestBean);
+		System.out.println("Before Saving Object:::::: "+requestRepository);
+		requestRepository.save(requestBean);
+		System.out.println("After Saving Object::::::");
 	}
 	
-	/*@Transactional(readOnly = true)
 	  @Override
 	  public void run(String... args) throws Exception {
 
 
 	      System.out.println("\n1.findAll()...");
-	      for (RequestBean requestBean : requestRepository.findAll()) {
+	      for (RequestMasterEntity requestBean : requestRepository.findAll()) {
 	          System.out.println(requestBean);
 	      }
 
 	      System.out.println("\n2.findByRequestTitle(String requestTitle)");
-	      for (RequestBean requestBean : requestRepository.findByRequestTitle("harsh")) {
+	      for (RequestMasterEntity requestBean : requestRepository.findByRequestTitle("harsh")) {
 	          System.out.println(requestBean);
 	      }
 
 	      System.out.println("\n3.findByRequestId(String requestId)");
-	      for (RequestBean requestBean : requestRepository.findByRequestId("12345")) {
+	      for (RequestMasterEntity requestBean : requestRepository.findByRequestId("12345")) {
 	          System.out.println(requestBean);
 	      }
 
 	      // For Stream, need @Transactional
 	      System.out.println("\n4.findByRequestTitleReturnStream(@Param(\"requestTitle\") String requestTitle)..");
-	      try (Stream<RequestBean> stream = requestRepository.findByRequestTitleReturnStream("ajay")) {
+	      try (Stream<RequestMasterEntity> stream = requestRepository.findByRequestTitleReturnStream("ajay")) {
 	          stream.forEach(x -> System.out.println(x));
 	      }
 
@@ -71,8 +74,12 @@ public class RequestBeanDaoImpl {
 	      //}
 
 	      System.out.println("Done!");
-
-	      exit(0);
-	  }*/
+	      //saveRequestBean();
+	      //System.exit(0);
+	  }
+	  
+	  public static void main(String[] args) {
+			//SpringApplication.run(QAApplication.class, args);
+		}
 	
 }

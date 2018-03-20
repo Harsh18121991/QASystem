@@ -1,5 +1,6 @@
 logging:
-  level: info
+  level: 
+    root: info
 
 spring:
   http:
@@ -20,10 +21,10 @@ spring:
     banner-mode: off
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
 server:
   port: 8080
-
-
 
