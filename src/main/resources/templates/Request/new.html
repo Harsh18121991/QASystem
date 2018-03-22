@@ -107,14 +107,9 @@ function showDiv(elem){
 				var value 	= $(item).val(); 
 					jsonObject[item.name] = value;
     	   });
-    	    
-/*     	var l_html = '';
-    		l_html += '<form id="createRequestForm">';
-    		l_html += "<input type='hidden' name='requestData' value='"+JSON.stringify(l_requestData)+"' >";
-    		l_html += '</form>';
-    		$("body").append(l_html);
-    	   $('#createRequestForm').submit();  */
-    		   $('#createRequestForm').append('<input type="hidden" id="requestData" name="requestData" value='+jsonObject+'/> ');
+				 l_requestData.requestData = jsonObject;
+    	   $("#requestData").val(jsonObject);
+    		 // $('#createRequestForm').append('<input type="hidden" id="requestData" name="requestData" value="'+JSON.stringify(jsonObject)+'" /> ');
     		   $('#createRequestForm').submit();
        }
     	    // ]]>
@@ -199,6 +194,16 @@ function showDiv(elem){
 						</div>
 
 					</div>
+						<div class="form-group col-xs-6">
+						<label for="tags">Tags</label> <input name="tags"
+							style="border: 1px solid black" type="text" class="form-control"
+							 id="tags" placeholder="Tag" />
+					</div>
+					<div class="form-group col-xs-6">
+						<label for="owner">Owner</label> <input name="owner"
+							style="border: 1px solid black" type="text" class="form-control"
+							 id="owner" placeholder="Tag" value = "QA"/>
+					</div>
 					<div class="form-group" style="margin-right: -10px">
 						<label for="description"
 							style="margin-top: 20px; margin-left: 17px">Description</label>
@@ -253,11 +258,7 @@ function showDiv(elem){
 
 
 						<div class="col-xs-6">
-							<div class="form-group">
-								<label for="createdBy" style="display: none">Created By</label>
-								<input style="border: 1px solid black; display: none"
-									type="text" class="form-control" th:field="*{createdBy}"
-									id="createdBy" placeholder="Enter your name here" value="employee"/>
+							<div class="form-group" id = "requestData" name = "requestData">
 							</div>
 						</div>
 
