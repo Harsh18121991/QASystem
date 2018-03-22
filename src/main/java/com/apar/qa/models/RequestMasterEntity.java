@@ -132,14 +132,11 @@ public class RequestMasterEntity implements Serializable {
 	}
 	
 	public void setProperties(Map<String, Object> beanproperties) {
-		setRequestId((String) beanproperties.get("requestId"));
 		setRequestTitle((String) beanproperties.get("requestTitle"));
 		setShortDescription((String) beanproperties.get("shortDescription"));
 		setDescription((String) beanproperties.get("description"));
-		setRequestType((MasterValuesEntity) beanproperties.get("requestType"));
-		setContentType((MasterValuesEntity) beanproperties.get("contentType"));
-		setStatus((MasterValuesEntity) beanproperties.get("status"));
-		setCreatedBy((String) beanproperties.get("createdBy"));
+		setCreatedBy("System");
+		setOwner((String) beanproperties.get("owner"));
 		setCreatedAt(new Date());
 	}
 	 

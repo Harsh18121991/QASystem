@@ -1,10 +1,13 @@
 package com.apar.qa.service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.apar.qa.common.DatabaseSequenceGenerator;
 import com.apar.qa.dao.MasterValuesDAO;
 import com.apar.qa.dao.RequestMasterDAO;
 import com.apar.qa.dao.TagMasterDAO;
@@ -23,6 +26,11 @@ public class RequestService {
 	
 	@Autowired
 	private TagMasterDAO tagMasterDAO;
+	
+	@Autowired
+	private DatabaseSequenceGenerator db;
+	
+	private String prefix = "REQ";
 	
 	public void saveRequestBean() {
 		RequestMasterEntity requestBean = new RequestMasterEntity();
@@ -47,6 +55,61 @@ public class RequestService {
 		requestBean.setExpectedReviewDate(new Date());
 		requestMasterDAO.save(requestBean);
 		System.out.println("Object Saved Successfully::::::");
+	}
+	
+	public String addRequest(Map<String, Object> requestMap)
+	{
+		RequestMasterEntity requestMaster = new RequestMasterEntity();
+		try {
+			requestMaster.setProperties(requestMap);
+			if(requestMap.get("requestType")!=null)
+			{
+				MasterValuesEntity requestType = masterValuesDAO.findById((String) requestMap.get("requestType"));
+				requestMaster.setRequestType(requestType);
+			}
+			if(requestMap.get("contentType")!=null)
+			{
+				MasterValuesEntity contentType = masterValuesDAO.findById((String) requestMap.get("contentType"));
+				requestMaster.setContentType(contentType);
+			}
+			if(requestMap.get("status")!=null)
+			{
+				MasterValuesEntity status = masterValuesDAO.findById((String) requestMap.get("status"));
+				requestMaster.setStatus(status);
+			}
+			if(requestMap.get("tags")!=null)
+			{
+				TagMasterEntity tags = tagMasterDAO.findByTagId((String) requestMap.get("tags"));
+				requestMaster.setTags(tags);
+			}
+			if(requestMap.get("priority")!=null)
+			{
+				MasterValuesEntity priority = masterValuesDAO.findById((String) requestMap.get("priority"));
+				requestMaster.setPriority(priority);
+			}
+			try {
+				if(requestMap.get("targetClosureDate")!=null)
+				{
+					Date targetClosureDate = new SimpleDateFormat("yyyy-mm-dd").parse((String) requestMap.get("targetClosureDate"));
+					requestMaster.setTargetClosureDate(targetClosureDate);
+				}
+				if(requestMap.get("expectedReviewDate")!=null)
+				{
+					Date expectedReviewDate = new SimpleDateFormat("yyyy-mm-dd").parse((String) requestMap.get("expectedReviewDate"));
+					requestMaster.setExpectedReviewDate(expectedReviewDate);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			String generated_id = db.generateUniqueId(prefix, "");
+			requestMaster.setRequestId(generated_id);
+			requestMasterDAO.save(requestMaster);
+			System.out.println("Object Saved Successfully::::::");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return requestMaster.getRequestId();
 	}
 	
 	  /*@Override
