@@ -1,28 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Quality System</title>
+<title>Quality System</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.css"/>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css"/>
-    <link rel="stylesheet" href="../css/main.css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	
-	
+<!-- CSS -->
+<link rel="stylesheet"
+	href="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" />
+<link rel="stylesheet" href="../css/main.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
 <script>
 //<![CDATA[
 window.onload = function() {
-	  document.getElementById('textbox').style.display = 'none';
-	  document.getElementById('documentbox').style.display = 'none';
+	  document.getElementById('contentText').style.display = 'none';
+	  document.getElementById('fileText').style.display = 'none';
 	 
-	  document.getElementById('textcontent').style.display = 'none';
+	  document.getElementById('linkText').style.display = 'none';
 	  $("#expectedDate").on('change', function() {
 		    var startDate = document.getElementById("targetDate").value;
 		    var endDate = document.getElementById("expectedDate").value;
@@ -36,23 +39,22 @@ window.onload = function() {
 
 function showDiv(elem){
 	   if(elem.value == 'Text'){
-		   document.getElementById('documentbox').style.display = 'none';
-		   document.getElementById('textcontent').style.display = 'none';
-		   document.getElementById('textbox').style.display = "block";
+		   document.getElementById('fileText').style.display = 'none';
+		   document.getElementById('linkText').style.display = 'none';
+		   document.getElementById('contentText').style.display = "block";
 	   }
 	   if(elem.value == 'Document'){
-		   document.getElementById('textbox').style.display = 'none';
-		   document.getElementById('textcontent').style.display = 'none';
-		   document.getElementById('documentbox').style.display = "block";
+		   document.getElementById('contentText').style.display = 'none';
+		   document.getElementById('linkText').style.display = 'none';
+		   document.getElementById('fileText').style.display = "block";
 	   }
 	   if(elem.value == 'Link'){
-		   document.getElementById('textbox').style.display = 'none';
-		   document.getElementById('textcontent').style.display = "block";
-		   document.getElementById('documentbox').style.display = 'none';
+		   document.getElementById('contentText').style.display = 'none';
+		   document.getElementById('linkText').style.display = "block";
+		   document.getElementById('fileText').style.display = 'none';
 	   }
 	   
 	}
-
 
         var specialKeys = new Array();
         specialKeys.push(8); //Backspace
@@ -72,7 +74,7 @@ function showDiv(elem){
             return ret;
         } 
         
-     // ]]>
+ 
      
         function descriptionLength(maxchars) {
         	 if(description.value.length > maxchars) {
@@ -98,10 +100,24 @@ function showDiv(elem){
        	   return true;
        	 }
      
-       function  submitForm(){
-    	   $('#createRequestForm').submit();
+       function  submitForm(){debugger;
+				var jsonObject = {};
+				var l_requestData = {};
+				 $("form :input").each(function(index,item){
+				var value 	= $(item).val(); 
+					jsonObject[item.name] = value;
+    	   });
+    	    
+/*     	var l_html = '';
+    		l_html += '<form id="createRequestForm">';
+    		l_html += "<input type='hidden' name='requestData' value='"+JSON.stringify(l_requestData)+"' >";
+    		l_html += '</form>';
+    		$("body").append(l_html);
+    	   $('#createRequestForm').submit();  */
+    		   $('#createRequestForm').append('<input type="hidden" id="requestData" name="requestData" value='+jsonObject+'/> ');
+    		   $('#createRequestForm').submit();
        }
-  
+    	    // ]]>
 
      
     </script>
@@ -109,119 +125,154 @@ function showDiv(elem){
 </head>
 <body>
 	<div th:include="topnav::topnav"></div>
-	 
-    <!-- Body -->
-    <div class="container" style="width:90%">
-		
-        <h1>Raise a Request</h1>
+
+	<!-- Body -->
+	<div class="container" style="width: 90%">
+
+		<h1>Raise a Request</h1>
 
 
-        <div class="row">
+		<div class="row">
 
-            <form id="createRequestForm" action="/submitRequest" th:object="${request}"  method="post" enctype="multipart/form-data">
+			<form id="createRequestForm" name="createRequestForm"
+				action="/submitRequest" th:object="${request}" method="post"
+				enctype="multipart/form-data">
 
-                <!-- Left Column -->
-                <div class="col-xs-12">
+				<!-- Left Column -->
+				<div class="col-xs-12">
 
-                    <div class="form-group col-xs-6">
-                        <label for="requestTitle">Request Title (Max 250 Characters)</label>
-                        <input style="border: 1px solid black" type="text" class="form-control" th:field="*{requestTitle}" id="requestTitle" name = "requestTitle" placeholder="Enter your request title" onkeypress="return IsAlphaNumeric(event)" />
-                    </div>
-                   
-                   <div class="form-group col-xs-6">
-                        <label for="shortDescription">Short Description (Max 250 Characters)</label>
-                        <input name="shortDescription" style="border:1px solid black" type="text" class="form-control" th:field="*{shortDescription}" id="shortDescription" placeholder="Describe your review request here" onkeypress="shortDescriptionLength(255);"/>
-                    </div>
-                   
+					<div class="form-group col-xs-6">
+						<label for="requestTitle">Request Title (Max 250
+							Characters)</label> <input style="border: 1px solid black" type="text"
+							class="form-control" th:field="*{requestTitle}" id="requestTitle"
+							name="requestTitle" placeholder="Enter your request title"
+							onkeypress="return IsAlphaNumeric(event)" />
+					</div>
 
-             <!--         <div class="form-group">-->
-                    <div class="form-group col-xs-6">
-                        <label for="requestTitle" >Request Type</label><br/>
-                        <select style="border:1px solid black" class="form-control" >
- 							<option hidden="">Choose Type</option>
-							 <option>Document Review</option>
-							 <option>Application Review</option>
-							 <option>Release Review</option>
-		                     <option>Build Review</option>				
+					<div class="form-group col-xs-6">
+						<label for="shortDescription">Short Description (Max 250
+							Characters)</label> <input name="shortDescription"
+							style="border: 1px solid black" type="text" class="form-control"
+							th:field="*{shortDescription}" id="shortDescription"
+							placeholder="Describe your review request here"
+							onkeypress="shortDescriptionLength(255);" />
+					</div>
+
+
+					<!--         <div class="form-group">-->
+					<div class="form-group col-xs-6">
+						<label for="requestType">Request Type</label><br /> <select id = "requestType" name = "requestType"
+							style="border: 1px solid black" class="form-control">
+							<option hidden="">Select Type</option>
+							<option>Document Review</option>
+							<option>Application Review</option>
+							<option>Release Review</option>
+							<option>Build Review</option>
 							<option>Other Items</option>
 						</select>
-                    </div>
-                    
-				   <div class="form-group col-xs-6">
-                        <label for="requestTitle" >Priority</label><br/>
-                        <select style="border: 1px solid black" class="form-control">
-							 <option>Low</option>
-							 <option>Medium</option>
-							 <option>High</option>
+					</div>
+
+					<div class="form-group col-xs-6">
+						<label for="priority" >Priority</label><br /> <select id = "priority" name = "priority"
+							style="border: 1px solid black" class="form-control">
+							<option hidden="">Select</option>
+							<option>Low</option>
+							<option>Medium</option>
+							<option>High</option>
 						</select>
-                    </div>
-                   
-                    
-                          <div class="form-group" style="margin-top:20px">
-                            <div class="col-xs-6" >
-                                <label for="targetDate" >Target Date</label>
-                                <input style="border:1px solid black" type="date" class="form-control"  id="targetDate" placeholder="Enter Target Date here (dd/MM/yyyy)"/>
-                            </div>
-                    
-                            <div class="col-xs-6">
-                                <label for="expectedDate">Expected Date</label>
-                                <input style="border:1px solid black" type="date" class="form-control"  id="expectedDate" placeholder="Enter Expected Date here (dd/MM/yyyy)"/>
-                            </div>
-                    
-                       </div>
-                    <div class="form-group" style="margin-right:-10px" >
-                        <label for="description" style="margin-top: 20px;margin-left: 17px" >Description</label>
-                        <textarea name="description" style="border: 1px solid black;margin-left:15px;width:97.2%" class="form-control" th:field="*{description}" rows="3" id="description"  onkeypress = "return descriptionLength(500);" ></textarea>
-                    </div>
-                    
-				 <div class="content" style="height:220px;border: 1px ">
-						 <div class="form-group" id="contentType"  >
-                        <label style="margin-top:10px;margin-left:16px" for="requestTitle;margin-left: 16px" >Content Type</label><br/>
-                        <select style="border:1px solid black;margin-left:14px;width: 98%" class="form-control"  onchange="showDiv(this)">
- 							<option hidden="">Choose Content Type</option>
-							 <option>Text</option>
-							 <option>Document</option>
-							 <option>Link</option>
-						</select>
-                    </div>
-     
-                     <div  id='textbox' class="form-group">
-                        <label for="description" style="margin-left:16px">Content Text</label>
-                        <textarea style="border:1px solid black;margin-left:14px;width: 98%" class="form-control"  rows="3" id="text"></textarea>
-                    </div>
-                    
-                     <div id='documentbox' class="form-group">
-                        <label for="document" style="margin-left:16px">Choose File</label>
-                        <input style="border:1px solid black;margin-left:14px;width: 98%" type="file" class="form-control" id="file" name="file"/>
-                    </div>
-                    
-                    <div class="form-group" id="textcontent">
-                        <label for="shortDescription" style="margin-left:16px">Content Link</label>
-                        <input style="border: 1px solid black;margin-left:14px;width: 98%" type="text" class="form-control"  id="contentLink" placeholder="Provide the Path"/>
-                    </div>
-                   </div>
-                    
-                     
-                    <div class="row">
+					</div>
 
-                       
-                       
-                       
-                        <div class="col-xs-6">
-                            <div class="form-group">
-                                <label for="createdBy" style="display: none">Created By</label>
-                                <input style="border:1px solid black;display:none" type="text" class="form-control" th:field="*{createdBy}" id="createdBy" placeholder="Enter your name here"/>
-                            </div>
-                        </div>
-                       
-                    </div>
 
-                    <button type="button" class="btn btn-primary" style="border:1px solid black;width:100px;color:black;margin-bottom:20px" onClick = "submitForm()">Submit</button>
-                    <button type="reset" class="btn btn-danger" value="Reset" onClick="window.location.reload()" style="background-color:white;border:1px solid black;width:100px;color:black;margin-left:80px;margin-bottom:20px">Cancel</button>
+					<div class="form-group" style="margin-top: 20px">
+						<div class="col-xs-6">
+							<label for="targetDate">Target Date</label> <input
+								style="border: 1px solid black" type="date" class="form-control"
+								id="targetDate" name="targetDate"
+								placeholder="Enter Target Date here (dd/MM/yyyy)" />
+						</div>
 
-                </div>
+						<div class="col-xs-6">
+							<label for="expectedDate" >Expected Date</label> <input
+								style="border: 1px solid black" type="date" class="form-control"
+								id="expectedDate" name = "expectedDate"
+								placeholder="Enter Expected Date here (dd/MM/yyyy)" />
+						</div>
 
-               <!--   Right Column 
+					</div>
+					<div class="form-group" style="margin-right: -10px">
+						<label for="description"
+							style="margin-top: 20px; margin-left: 17px">Description</label>
+						<textarea name="description"
+							style="border: 1px solid black; margin-left: 15px; width: 97.2%"
+							class="form-control" th:field="*{description}" rows="3"
+							id="description" onkeypress="return descriptionLength(500);"></textarea>
+					</div>
+
+					<div class="content" style="height: 220px; border: 1px">
+						<div class="form-group" >
+							<label style="margin-top: 10px; margin-left: 16px"
+								for="requestTitle;margin-left: 16px">Content Type</label><br />
+							<select id="contentType" name = "contentType"
+								style="border: 1px solid black; margin-left: 14px; width: 98%"
+								class="form-control" onchange="showDiv(this)">
+								<option hidden="">Select Content Type</option>
+								<option>Text</option>
+								<option>Document</option>
+								<option>Link</option>
+							</select>
+						</div>
+
+						<div id='contentText' class="form-group">
+							<label for="text" style="margin-left: 16px">Content
+								Text</label>
+							<textarea
+								style="border: 1px solid black; margin-left: 14px; width: 98%"
+								class="form-control" rows="3" id="text" name = "text"></textarea>
+						</div>
+
+						<div id='fileText' class="form-group">
+							<label for="file" style="margin-left: 16px">Choose
+								File</label> <input
+								style="border: 1px solid black; margin-left: 14px; width: 98%"
+								type="file" class="form-control" id="file" name="file" />
+						</div>
+
+						<div class="form-group" id="linkText">
+							<label for="Link" style="margin-left: 16px">Content
+								Link</label> <input
+								style="border: 1px solid black; margin-left: 14px; width: 98%"
+								type="text" class="form-control" id="Link" name="link"
+								placeholder="Provide the Path" />
+						</div>
+					</div>
+
+
+					<div class="row">
+
+
+
+
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="createdBy" style="display: none">Created By</label>
+								<input style="border: 1px solid black; display: none"
+									type="text" class="form-control" th:field="*{createdBy}"
+									id="createdBy" placeholder="Enter your name here" value="employee"/>
+							</div>
+						</div>
+
+					</div>
+
+					<button type="button" class="btn btn-primary"
+						style="border: 1px solid black; width: 100px; color: black; margin-bottom: 20px"
+						onClick="submitForm()">Submit</button>
+					<button type="reset" class="btn btn-danger" value="Reset"
+						onClick="window.location.reload()"
+						style="background-color: white; border: 1px solid black; width: 100px; color: black; margin-left: 80px; margin-bottom: 20px">Cancel</button>
+
+				</div>
+
+				<!--   Right Column 
                 <div class="col-sm-6">
 
                  
@@ -230,15 +281,15 @@ function showDiv(elem){
                     </div>
  -->
 
-            </form>
+			</form>
 
-        </div>
+		</div>
 
-    </div>
+	</div>
 
-    <!-- JavaScript -->
-    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.js"></script>
-    <script src="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.js"></script>
+	<!-- JavaScript -->
+	<script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.2.4.js"></script>
+	<script src="//ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.js"></script>
 
 </body>
 </html>
