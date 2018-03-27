@@ -1,4 +1,4 @@
-package com.apar.qa.controllers;
+package com.apar.qa.rest;
 
 
 import java.util.List;

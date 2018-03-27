@@ -1,7 +1,8 @@
-package com.apar.qa.service;
+package com.apar.qa.services;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,27 +65,32 @@ public class RequestService {
 			requestMaster.setProperties(requestMap);
 			if(requestMap.get("requestType")!=null)
 			{
-				MasterValuesEntity requestType = masterValuesDAO.findById((String) requestMap.get("requestType"));
+				//MasterValuesEntity requestType = masterValuesDAO.findById((String) requestMap.get("requestType"));
+				MasterValuesEntity requestType = masterValuesDAO.findById("MAS000016");
 				requestMaster.setRequestType(requestType);
 			}
 			if(requestMap.get("contentType")!=null)
 			{
-				MasterValuesEntity contentType = masterValuesDAO.findById((String) requestMap.get("contentType"));
+				//MasterValuesEntity contentType = masterValuesDAO.findById((String) requestMap.get("contentType"));
+				MasterValuesEntity contentType = masterValuesDAO.findById("MAS000002");
 				requestMaster.setContentType(contentType);
 			}
-			if(requestMap.get("status")!=null)
-			{
-				MasterValuesEntity status = masterValuesDAO.findById((String) requestMap.get("status"));
+			//if(requestMap.get("status")!=null)
+			//{
+				//MasterValuesEntity status = masterValuesDAO.findById((String) requestMap.get("status"));
+				MasterValuesEntity status = masterValuesDAO.findById("MAS000008");
 				requestMaster.setStatus(status);
-			}
+			//}
 			if(requestMap.get("tags")!=null)
 			{
-				TagMasterEntity tags = tagMasterDAO.findByTagId((String) requestMap.get("tags"));
+				//TagMasterEntity tags = tagMasterDAO.findByTagId((String) requestMap.get("tags"));
+				TagMasterEntity tags = tagMasterDAO.findByTagId("TAG000001");
 				requestMaster.setTags(tags);
 			}
 			if(requestMap.get("priority")!=null)
 			{
-				MasterValuesEntity priority = masterValuesDAO.findById((String) requestMap.get("priority"));
+				//MasterValuesEntity priority = masterValuesDAO.findById((String) requestMap.get("priority"));
+				MasterValuesEntity priority = masterValuesDAO.findById("MAS000004");
 				requestMaster.setPriority(priority);
 			}
 			try {
@@ -110,6 +116,12 @@ public class RequestService {
 		}
 		
 		return requestMaster.getRequestId();
+	}
+	
+	public List<RequestMasterEntity> getAllRequest()
+	{
+		List<RequestMasterEntity> listRequest = (List<RequestMasterEntity>) requestMasterDAO.findAll();
+		return listRequest;
 	}
 	
 	  /*@Override
