@@ -31,13 +31,13 @@ public class RequestController {
 		return "Request/details";
 	}
 
-	@GetMapping("/new")
+	@GetMapping("/add")
 	public String newrequestForm( Model model) {
 		model.addAttribute("request", new RequestMasterBean());
-		return "Request/new";
+		return "Request/add";
 	}
 
-	@PostMapping("/new")
+	@PostMapping("/add")
 	public String Create(@ModelAttribute RequestMasterBean request,@RequestParam("file") MultipartFile imageFile) {
 		LOG.info("creating request");
 		return "redirect:/dashboard";
