@@ -30,6 +30,9 @@ public class RequestService {
 	private TagMasterDAO tagMasterDAO;
 	
 	@Autowired
+	private TagService tagService;
+	
+	@Autowired
 	private DatabaseSequenceGenerator db;
 	
 	private String prefix = "REQ";
@@ -49,8 +52,8 @@ public class RequestService {
 		requestBean.setCreatedBy("Ajay");
 		requestBean.setCreatedAt(new Date());
 		requestBean.setOwner("Harsh");
-		TagMasterEntity tags = tagMasterDAO.findByTagId("TAG000001");
-		requestBean.setTags(tags);
+		//TagMasterEntity tags = tagMasterDAO.findByTagId("TAG000001");
+		requestBean.setTags("apar");
 		MasterValuesEntity priority = masterValuesDAO.findById("MAS000004");
 		requestBean.setPriority(priority);
 		requestBean.setTargetClosureDate(new Date());
@@ -82,11 +85,10 @@ public class RequestService {
 				MasterValuesEntity status = masterValuesDAO.findById("MAS000008");
 				requestMaster.setStatus(status);
 			//}
-			if(requestMap.get("tags")!=null)
+			if(requestMap.get("tags")!=null && !requestMap.get("tags").equals(""))
 			{
-				//TagMasterEntity tags = tagMasterDAO.findByTagId((String) requestMap.get("tags"));
-				TagMasterEntity tags = tagMasterDAO.findByTagId("TAG000001");
-				requestMaster.setTags(tags);
+				String tagIds = tagService.getAllTagIdsByName((String) requestMap.get("tags"));
+				requestMaster.setTags(tagIds);
 			}
 			if(requestMap.get("priority")!=null)
 			{

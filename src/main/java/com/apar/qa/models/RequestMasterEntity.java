@@ -34,9 +34,7 @@ public class RequestMasterEntity implements Serializable {
 	String createdBy;
 	Date createdAt;
 	String owner;
-	@ManyToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="tags")
-	TagMasterEntity tags;
+	String tags;
 	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="priority")
 	MasterValuesEntity priority;
@@ -103,10 +101,10 @@ public class RequestMasterEntity implements Serializable {
 	public void setOwner(String owner) {
 		this.owner = owner;
 	}
-	public TagMasterEntity getTags() {
+	public String getTags() {
 		return tags;
 	}
-	public void setTags(TagMasterEntity tags) {
+	public void setTags(String tags) {
 		this.tags = tags;
 	}
 	public MasterValuesEntity getPriority() {
