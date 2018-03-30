@@ -22,10 +22,11 @@
 <script>
 //<![CDATA[
 window.onload = function() {
-	  document.getElementById('contentText').style.display = 'none';
-	  document.getElementById('fileText').style.display = 'none';
+		
+	  //document.getElementById('contentText').style.display = 'none';
+	 // document.getElementById('fileText').style.display = 'none';
 	 
-	  document.getElementById('linkText').style.display = 'none';
+	 // document.getElementById('linkText').style.display = 'none';
 	  $("#expectedDate").on('change', function() {
 		    var startDate = document.getElementById("targetDate").value;
 		    var endDate = document.getElementById("expectedDate").value;
@@ -35,23 +36,36 @@ window.onload = function() {
 		      document.getElementById("expectedDate").value = "";
 		    }
 		  });
+	  
 	}
+	
+	
+	/* window.onchange="gapReduce()" */
 
 function showDiv(elem){
 	   if(elem.value == 'Text'){
-		   document.getElementById('fileText').style.display = 'none';
-		   document.getElementById('linkText').style.display = 'none';
-		   document.getElementById('contentText').style.display = "block";
+		   //document.getElementById('fileText').style.display = 'none';
+		  // document.getElementById('linkText').style.display = 'none';
+		   //document.getElementById('contentText').style.display = "block";
+		   $("#fileText").removeClass("show").addClass("hide");
+		   $("#linkText").removeClass("show").addClass("hide");
+		   $("#contentText").removeClass("hide").addClass("show");
 	   }
 	   if(elem.value == 'Document'){
-		   document.getElementById('contentText').style.display = 'none';
-		   document.getElementById('linkText').style.display = 'none';
-		   document.getElementById('fileText').style.display = "block";
+		   //document.getElementById('contentText').style.display = 'none';
+		   //document.getElementById('linkText').style.display = 'none';
+		   //document.getElementById('fileText').style.display = "block";
+		   $("#linkText").removeClass("show").addClass("hide");
+		   $("#contentText").removeClass("show").addClass("hide");
+		   $("#fileText").removeClass("hide").addClass("show");
 	   }
 	   if(elem.value == 'Link'){
-		   document.getElementById('contentText').style.display = 'none';
-		   document.getElementById('linkText').style.display = "block";
-		   document.getElementById('fileText').style.display = 'none';
+		   //document.getElementById('contentText').style.display = 'none';
+		  // document.getElementById('linkText').style.display = "block";
+		  // document.getElementById('fileText').style.display = 'none';
+		   $("#fileText").removeClass("show").addClass("hide");
+		   $("#contentText").removeClass("show").addClass("hide");
+		   $("#linkText").removeClass("hide").addClass("show");
 	   }
 	   
 	}
@@ -112,11 +126,14 @@ function showDiv(elem){
     		 // $('#createRequestForm').append('<input type="hidden" id="requestData" name="requestData" value="'+JSON.stringify(jsonObject)+'" /> ');
     		   $('#createRequestForm').submit();
        }
-    	    // ]]>
+    	   
+       
+       // ]]>
 
      
     </script>
 
+	
 </head>
 <body>
 	<div th:include="topnav::topnav"></div>
@@ -193,6 +210,7 @@ function showDiv(elem){
 								placeholder="Enter Expected Date here (dd/MM/yyyy)" />
 						</div>
 
+					
 					</div>
 						<div class="form-group col-xs-6">
 						<label for="tags">Tags</label> <input name="tags"
@@ -213,7 +231,7 @@ function showDiv(elem){
 							id="description" onkeypress="return descriptionLength(500);"></textarea>
 					</div>
 
-					<div class="content" style="height: 220px; border: 1px">
+					<div class="content" style="border: 1px">
 						<div class="form-group" >
 							<label style="margin-top: 10px; margin-left: 16px"
 								for="requestTitle;margin-left: 16px">Content Type</label><br />
@@ -227,7 +245,7 @@ function showDiv(elem){
 							</select>
 						</div>
 
-						<div id='contentText' class="form-group">
+						<div id='contentText' class="form-group hide">
 							<label for="text" style="margin-left: 16px">Content
 								Text</label>
 							<textarea
@@ -235,14 +253,14 @@ function showDiv(elem){
 								class="form-control" rows="3" id="text" name = "text"></textarea>
 						</div>
 
-						<div id='fileText' class="form-group">
+						<div id='fileText' class="form-group hide">
 							<label for="file" style="margin-left: 16px">Choose
 								File</label> <input
 								style="border: 1px solid black; margin-left: 14px; width: 98%"
 								type="file" class="form-control" id="file" name="file" />
 						</div>
 
-						<div class="form-group" id="linkText">
+						<div class="form-group hide" id="linkText">
 							<label for="Link" style="margin-left: 16px">Content
 								Link</label> <input
 								style="border: 1px solid black; margin-left: 14px; width: 98%"
@@ -263,6 +281,8 @@ function showDiv(elem){
 						</div>
 
 					</div>
+					
+					<div class="button-gap">
 
 					<button type="button" class="btn btn-primary"
 						style="border: 1px solid black; width: 100px; color: black; margin-bottom: 20px"
@@ -270,7 +290,8 @@ function showDiv(elem){
 					<button type="reset" class="btn btn-danger" value="Reset"
 						onClick="window.location.reload()"
 						style="background-color: white; border: 1px solid black; width: 100px; color: black; margin-left: 80px; margin-bottom: 20px">Cancel</button>
-
+					
+					</div>
 				</div>
 
 				<!--   Right Column 
