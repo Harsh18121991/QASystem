@@ -19,10 +19,10 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
-<script>
+<script>debugger;
 //<![CDATA[
-window.onload = function() {
-		
+window.onload = function() {debugger;
+	var masterValues = '${masterValues}';
 	  //document.getElementById('contentText').style.display = 'none';
 	 // document.getElementById('fileText').style.display = 'none';
 	 
@@ -143,7 +143,6 @@ function showDiv(elem){
 
 		<h1>Raise a Request</h1>
 
-
 		<div class="row">
 
 			<form id="createRequestForm" name="createRequestForm"
@@ -173,24 +172,24 @@ function showDiv(elem){
 
 					<!--         <div class="form-group">-->
 					<div class="form-group col-xs-6">
-						<label for="requestType">Request Type</label><br /> <select id = "requestType" name = "requestType"
-							style="border: 1px solid black" class="form-control">
-							<option hidden="">Select Type</option>
-							<option>Document Review</option>
-							<option>Application Review</option>
-							<option>Release Review</option>
-							<option>Build Review</option>
-							<option>Other Items</option>
-						</select>
+						<label for="requestType">Request Type</label><br /> 
+						<select id="requestType" name = "requestType" style="border: 1px solid black" class="form-control">
+						<option>--Select--</option>
+					     <option th:each="requestType : ${masterValues.requestType}"
+					         th:value="${requestType.value}"
+					         th:text="${requestType.value}">
+					     </option>
+					</select>
 					</div>
 
 					<div class="form-group col-xs-6">
 						<label for="priority" >Priority</label><br /> <select id = "priority" name = "priority"
 							style="border: 1px solid black" class="form-control">
-							<option hidden="">Select</option>
-							<option>Low</option>
-							<option>Medium</option>
-							<option>High</option>
+						<option>--Select--</option>
+					     <option th:each="priority : ${masterValues.priority}"
+					         th:value="${priority.value}"
+					         th:text="${priority.value}">
+					     </option>
 						</select>
 					</div>
 
@@ -238,10 +237,11 @@ function showDiv(elem){
 							<select id="contentType" name = "contentType"
 								style="border: 1px solid black; margin-left: 14px; width: 98%"
 								class="form-control" onchange="showDiv(this)">
-								<option hidden="">Select Content Type</option>
-								<option>Text</option>
-								<option>Document</option>
-								<option>Link</option>
+						<option>--Select--</option>
+					     <option th:each="content : ${masterValues.content}"
+					         th:value="${content.value}"
+					         th:text="${content.value}">
+					     </option>
 							</select>
 						</div>
 

@@ -2,6 +2,7 @@ package com.apar.qa.controllers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,11 +21,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.apar.qa.beans.RequestMasterBean;
+import com.apar.qa.models.RequestMasterEntity;
 import com.apar.qa.rest.ServiceClient;
+import com.apar.qa.services.RequestService;
 
 @Controller
 public class RequestController {
 	
+	@Autowired
+	private RequestService requestService;
 	private Log LOG = LogFactory.getLog(RequestController.class);
 
 	@GetMapping("/details")
@@ -34,6 +40,7 @@ public class RequestController {
 	@GetMapping("/add")
 	public String newrequestForm( Model model) {
 		model.addAttribute("request", new RequestMasterBean());
+		model.addAttribute("masterValues",requestService.getAllMasterValues());
 		return "Request/add";
 	}
 
@@ -45,8 +52,11 @@ public class RequestController {
 	
 	@GetMapping("/list")
 	public String listrequestForm( Model model) {
-		model.addAttribute("allRequests", getBeanDetails());
+		model.addAttribute("allRequests", requestService.getAllRequest());
+		List<RequestMasterEntity> listreq = requestService.getAllRequest();
+		System.out.println("this is list"+ listreq);
 		model.addAttribute("request",new RequestMasterBean());
+		//model.add
 		return "Request/listing";
 	}
 	
