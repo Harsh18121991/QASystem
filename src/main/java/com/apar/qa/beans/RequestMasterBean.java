@@ -74,41 +74,6 @@ public class RequestMasterBean implements Serializable {
 		
 	}
 	
-//	static public RequestBean getDemorequest() {
-//		RequestBean request = new RequestBean();
-//
-//		request.setR("description");
-//		
-//    	request.setDescription("description");
-//    	request.setStreet("the Street");
-//    	request.setCity("the City");
-//    	request.setState("CO");
-//    	request.setZipCode("00000");
-//    	request.setFirstName("firstname");
-//    	request.setLastName("lastname");
-//    	request.setPhoneNumber("303-555-1212");
-//    	request.setOutageType("outageType");
-//    	request.setIsEmergency(false);
-//    	request.setResolved(true);
-//    	request.setTags("Street, Lamps");
-//    	return request;
-//	}
-	
-	public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Properties ");
-        sb.append("Request Id=").append(requestId).append(", ");
-        sb.append("Request Title=").append(requestTitle).append(", ");
-        sb.append("Short Description=").append(shortDescription).append(", ");
-        sb.append("Description=").append(description).append(", ");
-        sb.append("Request Type=").append(requestType).append(", ");
-        sb.append("Content Type=").append(contentType).append(", ");
-        sb.append("Status=").append(status).append(", ");
-        sb.append("CreatedBy=").append(createdBy).append(", ");
-        sb.append("CreatedAt=").append(createdAt).append(", ");
-     	return sb.toString();
-	}
-
 	public String getRequestId() {
 		return requestId;
 	}
@@ -214,5 +179,20 @@ public class RequestMasterBean implements Serializable {
 	  setCreatedBy(beanproperties.get("createdBy"));
 	  setCreatedAt(new Date());
 	 }
+	 
+	 public String toString() {
+	        StringBuilder sb = new StringBuilder();
+	        sb.append("Properties ");
+	        sb.append("Request Id=").append(requestId).append(", ");
+	        sb.append("Request Title=").append(requestTitle).append(", ");
+	        sb.append("Short Description=").append(shortDescription).append(", ");
+	        sb.append("Description=").append(description).append(", ");
+	        sb.append("Request Type=").append(requestType).append(", ");
+	        sb.append("Content Type=").append(contentType).append(", ");
+	        sb.append("Status=").append(status).append(", ");
+	        sb.append("CreatedBy=").append(createdBy).append(", ");
+	        sb.append("CreatedAt=").append(createdAt).append(", ");
+	     	return sb.toString();
+	}
 	
 }
