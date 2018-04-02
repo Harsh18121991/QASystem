@@ -1,8 +1,8 @@
 package com.apar.qa.controllers;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,10 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.apar.qa.beans.RequestMasterBean;
-import com.apar.qa.models.RequestMasterEntity;
 import com.apar.qa.rest.ServiceClient;
 import com.apar.qa.services.RequestService;
-
+import org.json.JSONArray;
 @Controller
 public class RequestController {
 	
@@ -52,11 +51,10 @@ public class RequestController {
 	
 	@GetMapping("/list")
 	public String listrequestForm( Model model) {
-		model.addAttribute("allRequests", requestService.getAllRequest());
-		List<RequestMasterEntity> listreq = requestService.getAllRequest();
-		System.out.println("this is list"+ listreq);
-		model.addAttribute("request",new RequestMasterBean());
-		//model.add
+		String requestService = "listAllRequests";
+		JSONObject jsonObject = new JSONObject() ;
+		String value = ServiceClient.sendRequestData(jsonObject,requestService);
+		model.addAttribute("allRequests",convertJsonToList(value));
 		return "Request/listing";
 	}
 	
@@ -95,13 +93,29 @@ public class RequestController {
 		return theList;
 	}
 	
+	//this method converts string to list
+	public static ArrayList<RequestMasterBean> convertJsonToList(String jsonString)
+	{
+		ArrayList<RequestMasterBean> requestList = new ArrayList<>();
+		JSONArray jsonArray = new JSONArray(jsonString);
+		for (int i = 0;i<jsonArray.length();i++){
+			JSONObject jsonObject = jsonArray.getJSONObject(i);
+			System.out.println("json object is"+jsonObject);
+			RequestMasterBean bean = new RequestMasterBean();
+			bean.setRequestId(jsonObject.getString("requestId"));
+			bean.setRequestTitle(jsonObject.getString("requestTitle"));
+			bean.setShortDescription(jsonObject.getString("shortDescription"));
+			bean.setDescription(jsonObject.getString("description"));
+			bean.setTags(jsonObject.getString("tags"));
+			requestList.add(bean);
+		}
+		return requestList;
+	}
+	//this method hits service to save data for create request 
 	@PostMapping("/submitRequest")
 	public String submitRequestData(HttpServletRequest httpRequest,HttpServletResponse httpResponse,Model model){
 		Map<String,Object> requestData 	= new HashMap<String,Object>();
 		System.out.println("welcome to handle request");
-		//RequestController requestController = new RequestController();
-		//model.addAttribute("allRequests",requestController.getBeanDetails());
-		//model.addAttribute("request",new RequestMasterBean());
 		requestData.put("requestTitle",httpRequest.getParameter("requestTitle"));
 		requestData.put("shortDescription",httpRequest.getParameter("shortDescription"));
 		requestData.put("requestType",httpRequest.getParameter("requestType"));
@@ -117,25 +131,7 @@ public class RequestController {
 		requestData.put("file",httpRequest.getParameter("file"));
 		JSONObject jsonObject	=	 new JSONObject(requestData);
 		ServiceClient.sendRequestData(jsonObject,"addRequests");
-		return "Request/listing" ; 
+		return "redirect:/list"; 
 	}
-	
-	/*public String submitRequestData(HttpServletRequest httpRequest,HttpServletResponse httpResponse,Model model){
-	Map<String,Object> requestData 	= new HashMap<String,Object>();
-	System.out.println("welcome to handle request");
-	 String request = (String) httpRequest.getParameter("requestTitle");
-	System.out.println("this is the requst"+request);
-	try {
-		JSONObject json = new JSONObject(request);
-		System.out.println("jrequestData::: "+json);
-	} catch (JSONException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	JSONObject jsonObject	=	 new JSONObject(requestData);
-	SendServiceRequest.sendRequestData(jsonObject);
-	return "Request/listing" ; 
-}*/
-	
 
 }

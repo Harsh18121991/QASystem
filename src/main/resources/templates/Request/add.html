@@ -22,7 +22,6 @@
 <script>
 	//<![CDATA[
 	window.onload = function() {
-		var masterValues = '${masterValues}';
 		//document.getElementById('contentText').style.display = 'none';
 		// document.getElementById('fileText').style.display = 'none';
 
@@ -102,8 +101,8 @@
 
 	/* window.onchange="gapReduce()" */
 
-	function showDiv(elem) {
-		if (elem.value == 'TEXT') {
+	function showDiv(elem) {debugger;
+		if (elem.value == 'MAS000001') {
 			//document.getElementById('fileText').style.display = 'none';
 			// document.getElementById('linkText').style.display = 'none';
 			//document.getElementById('contentText').style.display = "block";
@@ -111,7 +110,7 @@
 			$("#linkText").removeClass("show").addClass("hide");
 			$("#contentText").removeClass("hide").addClass("show");
 		}
-		if (elem.value == 'DOCUMENT') {
+		if (elem.value == 'MAS000002') {
 			//document.getElementById('contentText').style.display = 'none';
 			//document.getElementById('linkText').style.display = 'none';
 			//document.getElementById('fileText').style.display = "block";
@@ -119,7 +118,7 @@
 			$("#contentText").removeClass("show").addClass("hide");
 			$("#fileText").removeClass("hide").addClass("show");
 		}
-		if (elem.value == 'LINK') {
+		if (elem.value == 'MAS000003') {
 			//document.getElementById('contentText').style.display = 'none';
 			// document.getElementById('linkText').style.display = "block";
 			// document.getElementById('fileText').style.display = 'none';
@@ -236,7 +235,7 @@
 							style="border: 1px solid black" class="form-control">
 							<option>--Select--</option>
 							<option th:each="requestType : ${masterValues.requestType}"
-								th:value="${requestType.value}" th:text="${requestType.value}">
+								th:value="${requestType.key}" th:text="${requestType.value}">
 					     </option>
 						</select>
 					</div>
@@ -247,7 +246,7 @@
 							class="form-control">
 							<option>--Select--</option>
 							<option th:each="priority : ${masterValues.priority}"
-								th:value="${priority.value}" th:text="${priority.value}">
+								th:value="${priority.key}" th:text="${priority.value}">
 					     </option>
 						</select>
 					</div>
@@ -298,7 +297,7 @@
 								class="form-control" onchange="showDiv(this)">
 								<option>--Select--</option>
 								<option th:each="content : ${masterValues.content}"
-									th:value="${content.value}" th:text="${content.value}">
+									th:value="${content.key}" th:text="${content.value}">
 					     </option>
 							</select>
 						</div>
