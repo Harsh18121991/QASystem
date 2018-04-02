@@ -20,169 +20,171 @@
 
 
 <script>
-//<![CDATA[
-window.onload = function() {
-	var masterValues = '${masterValues}';
-	  //document.getElementById('contentText').style.display = 'none';
-	 // document.getElementById('fileText').style.display = 'none';
-	 
-	 // document.getElementById('linkText').style.display = 'none';
-	  $("#expectedDate").on('change', function() {
-		    var startDate = document.getElementById("targetDate").value;
-		    var endDate = document.getElementById("expectedDate").value;
+	//<![CDATA[
+	window.onload = function() {
+		var masterValues = '${masterValues}';
+		//document.getElementById('contentText').style.display = 'none';
+		// document.getElementById('fileText').style.display = 'none';
 
-		    if ((Date.parse(endDate) <= Date.parse(startDate))) {
-		      alert("End date should be greater than Start date");
-		      document.getElementById("targetDate").value = ""
-		      document.getElementById("expectedDate").value = "";
-		    }
-		  });
-	  
+		// document.getElementById('linkText').style.display = 'none';
+		$("#expectedDate").on('change', function() {
+			var startDate = document.getElementById("targetDate").value;
+			var endDate = document.getElementById("expectedDate").value;
+
+			if ((Date.parse(endDate) <= Date.parse(startDate))) {
+				alert("End date should be greater than Start date");
+				document.getElementById("targetDate").value = ""
+				document.getElementById("expectedDate").value = "";
+			}
+		});
+
+		$("#requestTitle").on("keypress", function(e) {
+			if (e.which === 32 && !this.value.length)
+				e.preventDefault();
+		});
 	}
-	
-/* 	function requiredField(e) { debugger;
-	var length=document.getElementById('requestTitle').value;
- 	 if (length== 0)
-  	 { 
-      alert("message");  	
-      return false; 
-   	}  	
-  	 return true; 
- 	}  */
-	
- 	
- 	
- 	function validateForm() {debugger;
- 	    var requestTitl = document.forms["createRequestForm"]["requestTitle"].value;
- 	   	var shortDesc = document.forms["createRequestForm"]["shortDescription"].value;
- 		var requestTyp = document.forms["createRequestForm"]["requestType"].value;
- 		var priorty = document.forms["createRequestForm"]["priority"].value;
- 		var tag = document.forms["createRequestForm"]["tags"].value;
- 		var landlord = document.forms["createRequestForm"]["owner"].value;
- 		var desc = document.forms["createRequestForm"]["description"].value;
- 		var conType = document.forms["createRequestForm"]["contentType"].value; 
- 	   		if (requestTitl == "") {
- 	        alert("Request Title  must be filled out");
- 	   		}
- 	       	if (shortDesc == "") {
- 	 	        alert("Short Description  must be filled out");
- 	       	}
- 	 	  	if (requestTyp == "--Select--") {
- 	 	        alert("Please Select The value from Pick List");
- 	 	  	}
- 	 	  	if (priorty == "--Select--") {
- 	 	        alert("Please Select The Priority Form Pick List");
- 	 	  	}
- 	 	    if (tag == "") {
- 	 	 	        alert("Tag  must be filled out");
- 	 	    }
- 	 	 	if (landlord == "") {
-  	 	 	        alert("Owner  must be filled out");
- 	 	 	}
-  	 	 	if (desc == "") {
-  	 	 	        alert("Description  must be filled out");
-  	 	 	}
-  	 	 	 if (conType == "--Select--") {
-  	 	 	        alert("Please Select The Content Type From Pick List");          
-  	 	 	 } 	        
-  	 	 	        return false;
- 	    
-  	 	 	}
-	
-	
+
+	/* 	function requiredField(e) { debugger;
+		var length=document.getElementById('requestTitle').value;
+	 	 if (length== 0)
+	  	 { 
+	      alert("message");  	
+	      return false; 
+	   	}  	
+	  	 return true; 
+	 	}  */
+
+	function validateForm() {
+		debugger;
+		var requestTitl = document.forms["createRequestForm"]["requestTitle"].value;
+		var shortDesc = document.forms["createRequestForm"]["shortDescription"].value;
+		var requestTyp = document.forms["createRequestForm"]["requestType"].value;
+		var priorty = document.forms["createRequestForm"]["priority"].value;
+		var tag = document.forms["createRequestForm"]["tags"].value;
+		var landlord = document.forms["createRequestForm"]["owner"].value;
+		var desc = document.forms["createRequestForm"]["description"].value;
+		var conType = document.forms["createRequestForm"]["contentType"].value;
+		if (requestTitl == "") {
+			alert("Request Title  must be filled out");
+		}
+		if (shortDesc == "") {
+			alert("Short Description  must be filled out");
+		}
+		if (requestTyp == "--Select--") {
+			alert("Please Select The value from Pick List");
+		}
+		if (priorty == "--Select--") {
+			alert("Please Select The Priority Form Pick List");
+		}
+		if (tag == "") {
+			alert("Tag  must be filled out");
+		}
+		if (landlord == "") {
+			alert("Owner  must be filled out");
+		}
+		if (desc == "") {
+			alert("Description  must be filled out");
+		}
+		if (conType == "--Select--") {
+			alert("Please Select The Content Type From Pick List");
+		}
+		return false;
+
+	}
+
 	/* window.onchange="gapReduce()" */
 
-function showDiv(elem){
-	   if(elem.value == 'TEXT'){
-		   //document.getElementById('fileText').style.display = 'none';
-		  // document.getElementById('linkText').style.display = 'none';
-		   //document.getElementById('contentText').style.display = "block";
-		   $("#fileText").removeClass("show").addClass("hide");
-		   $("#linkText").removeClass("show").addClass("hide");
-		   $("#contentText").removeClass("hide").addClass("show");
-	   }
-	   if(elem.value == 'DOCUMENT'){
-		   //document.getElementById('contentText').style.display = 'none';
-		   //document.getElementById('linkText').style.display = 'none';
-		   //document.getElementById('fileText').style.display = "block";
-		   $("#linkText").removeClass("show").addClass("hide");
-		   $("#contentText").removeClass("show").addClass("hide");
-		   $("#fileText").removeClass("hide").addClass("show");
-	   }
-	   if(elem.value == 'LINK'){
-		   //document.getElementById('contentText').style.display = 'none';
-		  // document.getElementById('linkText').style.display = "block";
-		  // document.getElementById('fileText').style.display = 'none';
-		   $("#fileText").removeClass("show").addClass("hide");
-		   $("#contentText").removeClass("show").addClass("hide");
-		   $("#linkText").removeClass("hide").addClass("show");
-	   }
-	   
+	function showDiv(elem) {
+		if (elem.value == 'TEXT') {
+			//document.getElementById('fileText').style.display = 'none';
+			// document.getElementById('linkText').style.display = 'none';
+			//document.getElementById('contentText').style.display = "block";
+			$("#fileText").removeClass("show").addClass("hide");
+			$("#linkText").removeClass("show").addClass("hide");
+			$("#contentText").removeClass("hide").addClass("show");
+		}
+		if (elem.value == 'DOCUMENT') {
+			//document.getElementById('contentText').style.display = 'none';
+			//document.getElementById('linkText').style.display = 'none';
+			//document.getElementById('fileText').style.display = "block";
+			$("#linkText").removeClass("show").addClass("hide");
+			$("#contentText").removeClass("show").addClass("hide");
+			$("#fileText").removeClass("hide").addClass("show");
+		}
+		if (elem.value == 'LINK') {
+			//document.getElementById('contentText').style.display = 'none';
+			// document.getElementById('linkText').style.display = "block";
+			// document.getElementById('fileText').style.display = 'none';
+			$("#fileText").removeClass("show").addClass("hide");
+			$("#contentText").removeClass("show").addClass("hide");
+			$("#linkText").removeClass("hide").addClass("show");
+		}
+
 	}
 
-        var specialKeys = new Array();
-        specialKeys.push(8); //Backspace
-        specialKeys.push(9); //Tab
-        specialKeys.push(46); //Delete
-        specialKeys.push(36); //Home
-        specialKeys.push(35); //End
-        specialKeys.push(37); //Left
-        specialKeys.push(39); //Right
-        function IsAlphaNumeric(e) {
-        	//alert("function called");
-           var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
-            var ret = ((keyCode=32)||(keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
-            document.getElementById("requestTitle").style.display = ret ? "inline" : alert("Invalid Input..!!");
-           if(ret==false){
-            document.getElementById("requestTitle").value= '';}
-            return ret;
-        } 
-        
- 
-     
-        function descriptionLength(maxchars) {
-        	 if(description.value.length > maxchars) {
-        	   alert('Too much data in the text box! Please remove '+
-        	    (description.value.length - maxchars)+ ' characters');
-        	  
-        	   document.getElementById("description").value= '';
-        	   return false;
-        	 }
-        	 else
-        	   return true;
-        	 }
-        
-        function shortDescriptionLength(maxchars) {
-       	 if(shortDescription.value.length > maxchars) {
-       	   alert('Too much data in the text box! Please remove '+
-       	    (shortDescription.value.length - maxchars)+ ' characters');
-       	  
-       	   document.getElementById("shortDescription").value= '';
-       	   return false;
-       	 }
-       	 else
-       	   return true;
-       	 }
-     
-       function  submitForm(){
-				var jsonObject = {};
-				var l_requestData = {};
-				 $("form :input").each(function(index,item){
-				var value 	= $(item).val(); 
-					jsonObject[item.name] = value;
-    	   });
-				 l_requestData.requestData = jsonObject;
-    	   $("#requestData").val(jsonObject);
-    		 // $('#createRequestForm').append('<input type="hidden" id="requestData" name="requestData" value="'+JSON.stringify(jsonObject)+'" /> ');
-    		   $('#createRequestForm').submit();
-       }
-       
-       // ]]>
+	var specialKeys = new Array();
+	specialKeys.push(8); //Backspace
+	specialKeys.push(9); //Tab
+	specialKeys.push(46); //Delete
+	specialKeys.push(36); //Home
+	specialKeys.push(35); //End
+	specialKeys.push(37); //Left
+	specialKeys.push(39); //Right
+	function IsAlphaNumeric(e) {
+		//alert("function called");
+		var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
+		var ret = ((keyCode = 32) || (keyCode >= 48 && keyCode <= 57)
+				|| (keyCode >= 65 && keyCode <= 90)
+				|| (keyCode >= 97 && keyCode <= 122) || (specialKeys
+				.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+		document.getElementById("requestTitle").style.display = ret ? "inline"
+				: alert("Invalid Input..!!");
+		if (ret == false) {
+			document.getElementById("requestTitle").value = '';
+		}
+		return ret;
+	}
 
-     
-    </script>
+	function descriptionLength(maxchars) {
+		if (description.value.length > maxchars) {
+			alert('Too much data in the text box! Please remove '
+					+ (description.value.length - maxchars) + ' characters');
 
-	
+			document.getElementById("description").value = '';
+			return false;
+		} else
+			return true;
+	}
+
+	function shortDescriptionLength(maxchars) {
+		if (shortDescription.value.length > maxchars) {
+			alert('Too much data in the text box! Please remove '
+					+ (shortDescription.value.length - maxchars)
+					+ ' characters');
+
+			document.getElementById("shortDescription").value = '';
+			return false;
+		} else
+			return true;
+	}
+
+	function submitForm() {
+		var jsonObject = {};
+		var l_requestData = {};
+		$("form :input").each(function(index, item) {
+			var value = $(item).val();
+			jsonObject[item.name] = value;
+		});
+		l_requestData.requestData = jsonObject;
+		$("#requestData").val(jsonObject);
+		// $('#createRequestForm').append('<input type="hidden" id="requestData" name="requestData" value="'+JSON.stringify(jsonObject)+'" /> ');
+		$('#createRequestForm').submit();
+	}
+
+	// ]]>
+</script>
+
+
 </head>
 <body>
 	<div th:include="topnav::topnav"></div>
@@ -206,14 +208,14 @@ function showDiv(elem){
 							Characters)</label> <input style="border: 1px solid black" type="text"
 							class="form-control" th:field="*{requestTitle}" id="requestTitle"
 							name="requestTitle" placeholder="Enter your request title"
-							onkeypress="return IsAlphaNumeric(event)"/>
+							onkeypress="return IsAlphaNumeric(event)" />
 					</div>
 
 					<div class="form-group col-xs-6">
 						<label for="shortDescription">Short Description (Max 250
 							Characters)</label> <input name="shortDescription"
 							style="border: 1px solid black" type="text" class="form-control"
-							th:field="*{shortDescription}" id="shortDescription" 
+							th:field="*{shortDescription}" id="shortDescription"
 							placeholder="Describe your review request here"
 							onkeypress="shortDescriptionLength(255);" />
 					</div>
@@ -221,23 +223,23 @@ function showDiv(elem){
 
 					<!--         <div class="form-group">-->
 					<div class="form-group col-xs-6">
-						<label for="requestType">Request Type</label><br /> 
-						<select id="requestType" name = "requestType" style="border: 1px solid black" class="form-control">
-						<option>--Select--</option>
-					     <option th:each="requestType : ${masterValues.requestType}"
-					         th:value="${requestType.value}"
-					         th:text="${requestType.value}">
+						<label for="requestType">Request Type</label><br /> <select
+							id="requestType" name="requestType"
+							style="border: 1px solid black" class="form-control">
+							<option>--Select--</option>
+							<option th:each="requestType : ${masterValues.requestType}"
+								th:value="${requestType.value}" th:text="${requestType.value}">
 					     </option>
-					</select>
+						</select>
 					</div>
 
 					<div class="form-group col-xs-6">
-						<label for="priority" >Priority</label><br /> <select id = "priority" name = "priority"
-							style="border: 1px solid black" class="form-control">
-						<option>--Select--</option>
-					     <option th:each="priority : ${masterValues.priority}"
-					         th:value="${priority.value}"
-					         th:text="${priority.value}">
+						<label for="priority">Priority</label><br /> <select
+							id="priority" name="priority" style="border: 1px solid black"
+							class="form-control">
+							<option>--Select--</option>
+							<option th:each="priority : ${masterValues.priority}"
+								th:value="${priority.value}" th:text="${priority.value}">
 					     </option>
 						</select>
 					</div>
@@ -252,23 +254,23 @@ function showDiv(elem){
 						</div>
 
 						<div class="col-xs-6">
-							<label for="expectedDate" >Expected Date</label> <input
+							<label for="expectedDate">Expected Date</label> <input
 								style="border: 1px solid black" type="date" class="form-control"
-								id="expectedDate" name = "expectedDate"
+								id="expectedDate" name="expectedDate"
 								placeholder="Enter Expected Date here (dd/MM/yyyy)" />
 						</div>
 
-					
+
 					</div>
-						<div class="form-group col-xs-6">
+					<div class="form-group col-xs-6">
 						<label for="tags">Tags</label> <input name="tags"
 							style="border: 1px solid black" type="text" class="form-control"
-							 id="tags" placeholder="Tags" />
+							id="tags" placeholder="Tags" />
 					</div>
 					<div class="form-group col-xs-6">
 						<label for="owner">Owner</label> <input name="owner"
 							style="border: 1px solid black" type="text" class="form-control"
-							 id="owner" placeholder=" QA" value = "QA"/>
+							id="owner" placeholder=" QA" value="QA" />
 					</div>
 					<div class="form-group" style="margin-right: -10px">
 						<label for="description"
@@ -280,38 +282,35 @@ function showDiv(elem){
 					</div>
 
 					<div class="content" style="border: 1px">
-						<div class="form-group" >
+						<div class="form-group">
 							<label style="margin-top: 10px; margin-left: 16px"
 								for="requestTitle;margin-left: 16px">Content Type</label><br />
-							<select id="contentType" name = "contentType"
+							<select id="contentType" name="contentType"
 								style="border: 1px solid black; margin-left: 14px; width: 98%"
 								class="form-control" onchange="showDiv(this)">
-						<option>--Select--</option>
-					     <option th:each="content : ${masterValues.content}"
-					         th:value="${content.value}"
-					         th:text="${content.value}">
+								<option>--Select--</option>
+								<option th:each="content : ${masterValues.content}"
+									th:value="${content.value}" th:text="${content.value}">
 					     </option>
 							</select>
 						</div>
 
 						<div id='contentText' class="form-group hide">
-							<label for="text" style="margin-left: 16px">Content
-								Text</label>
+							<label for="text" style="margin-left: 16px">Content Text</label>
 							<textarea
 								style="border: 1px solid black; margin-left: 14px; width: 98%"
-								class="form-control" rows="3" id="text" name = "text"></textarea>
+								class="form-control" rows="3" id="text" name="text"></textarea>
 						</div>
 
 						<div id='fileText' class="form-group hide">
-							<label for="file" style="margin-left: 16px">Choose
-								File</label> <input
+							<label for="file" style="margin-left: 16px">Choose File</label> <input
 								style="border: 1px solid black; margin-left: 14px; width: 98%"
 								type="file" class="form-control" id="file" name="file" />
 						</div>
 
 						<div class="form-group hide" id="linkText">
-							<label for="Link" style="margin-left: 16px">Content
-								Link</label> <input
+							<label for="Link" style="margin-left: 16px">Content Link</label>
+							<input
 								style="border: 1px solid black; margin-left: 14px; width: 98%"
 								type="text" class="form-control" id="Link" name="link"
 								placeholder="Provide the Path" />
@@ -325,21 +324,21 @@ function showDiv(elem){
 
 
 						<div class="col-xs-6">
-							<div class="form-group" id = "requestData" name = "requestData">
+							<div class="form-group" id="requestData" name="requestData">
 							</div>
 						</div>
 
 					</div>
-					
+
 					<div class="button-gap">
 
-					<button type="button" class="btn btn-primary"
-						style="border: 1px solid black; width: 100px; color: black; margin-bottom: 20px"
-						onClick="submitForm()">Submit</button>
-					<button type="reset" class="btn btn-danger" value="Reset"
-						onClick="window.location.reload()"
-						style="background-color: white; border: 1px solid black; width: 100px; color: black; margin-left: 80px; margin-bottom: 20px">Cancel</button>
-					
+						<button type="button" class="btn btn-primary"
+							style="border: 1px solid black; width: 100px; color: black; margin-bottom: 20px"
+							onClick="submitForm()">Submit</button>
+						<button type="reset" class="btn btn-danger" value="Reset"
+							onClick="window.location.reload()"
+							style="background-color: white; border: 1px solid black; width: 100px; color: black; margin-left: 80px; margin-bottom: 20px">Cancel</button>
+
 					</div>
 				</div>
 
