@@ -19,9 +19,9 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 
-<script>debugger;
+<script>
 //<![CDATA[
-window.onload = function() {debugger;
+window.onload = function() {
 	var masterValues = '${masterValues}';
 	  //document.getElementById('contentText').style.display = 'none';
 	 // document.getElementById('fileText').style.display = 'none';
@@ -33,16 +33,66 @@ window.onload = function() {debugger;
 
 		    if ((Date.parse(endDate) <= Date.parse(startDate))) {
 		      alert("End date should be greater than Start date");
+		      document.getElementById("targetDate").value = ""
 		      document.getElementById("expectedDate").value = "";
 		    }
 		  });
 	  
 	}
 	
+/* 	function requiredField(e) { debugger;
+	var length=document.getElementById('requestTitle').value;
+ 	 if (length== 0)
+  	 { 
+      alert("message");  	
+      return false; 
+   	}  	
+  	 return true; 
+ 	}  */
+	
+ 	
+ 	
+ 	function validateForm() {debugger;
+ 	    var requestTitl = document.forms["createRequestForm"]["requestTitle"].value;
+ 	   	var shortDesc = document.forms["createRequestForm"]["shortDescription"].value;
+ 		var requestTyp = document.forms["createRequestForm"]["requestType"].value;
+ 		var priorty = document.forms["createRequestForm"]["priority"].value;
+ 		var tag = document.forms["createRequestForm"]["tags"].value;
+ 		var landlord = document.forms["createRequestForm"]["owner"].value;
+ 		var desc = document.forms["createRequestForm"]["description"].value;
+ 		var conType = document.forms["createRequestForm"]["contentType"].value; 
+ 	   		if (requestTitl == "") {
+ 	        alert("Request Title  must be filled out");
+ 	   		}
+ 	       	if (shortDesc == "") {
+ 	 	        alert("Short Description  must be filled out");
+ 	       	}
+ 	 	  	if (requestTyp == "--Select--") {
+ 	 	        alert("Please Select The value from Pick List");
+ 	 	  	}
+ 	 	  	if (priorty == "--Select--") {
+ 	 	        alert("Please Select The Priority Form Pick List");
+ 	 	  	}
+ 	 	    if (tag == "") {
+ 	 	 	        alert("Tag  must be filled out");
+ 	 	    }
+ 	 	 	if (landlord == "") {
+  	 	 	        alert("Owner  must be filled out");
+ 	 	 	}
+  	 	 	if (desc == "") {
+  	 	 	        alert("Description  must be filled out");
+  	 	 	}
+  	 	 	 if (conType == "--Select--") {
+  	 	 	        alert("Please Select The Content Type From Pick List");          
+  	 	 	 } 	        
+  	 	 	        return false;
+ 	    
+  	 	 	}
+	
 	
 	/* window.onchange="gapReduce()" */
 
-function showDiv(elem){debugger;
+function showDiv(elem){
 	   if(elem.value == 'TEXT'){
 		   //document.getElementById('fileText').style.display = 'none';
 		  // document.getElementById('linkText').style.display = 'none';
@@ -81,7 +131,7 @@ function showDiv(elem){debugger;
         function IsAlphaNumeric(e) {
         	//alert("function called");
            var keyCode = e.keyCode == 0 ? e.charCode : e.keyCode;
-            var ret = ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
+            var ret = ((keyCode=32)||(keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90) || (keyCode >= 97 && keyCode <= 122) || (specialKeys.indexOf(e.keyCode) != -1 && e.charCode != e.keyCode));
             document.getElementById("requestTitle").style.display = ret ? "inline" : alert("Invalid Input..!!");
            if(ret==false){
             document.getElementById("requestTitle").value= '';}
@@ -114,7 +164,7 @@ function showDiv(elem){debugger;
        	   return true;
        	 }
      
-       function  submitForm(){debugger;
+       function  submitForm(){
 				var jsonObject = {};
 				var l_requestData = {};
 				 $("form :input").each(function(index,item){
@@ -126,7 +176,6 @@ function showDiv(elem){debugger;
     		 // $('#createRequestForm').append('<input type="hidden" id="requestData" name="requestData" value="'+JSON.stringify(jsonObject)+'" /> ');
     		   $('#createRequestForm').submit();
        }
-    	   
        
        // ]]>
 
@@ -147,7 +196,7 @@ function showDiv(elem){debugger;
 
 			<form id="createRequestForm" name="createRequestForm"
 				action="/submitRequest" th:object="${request}" method="post"
-				enctype="multipart/form-data">
+				enctype="multipart/form-data" onsubmit="return validateForm()">
 
 				<!-- Left Column -->
 				<div class="col-xs-12">
@@ -157,14 +206,14 @@ function showDiv(elem){debugger;
 							Characters)</label> <input style="border: 1px solid black" type="text"
 							class="form-control" th:field="*{requestTitle}" id="requestTitle"
 							name="requestTitle" placeholder="Enter your request title"
-							onkeypress="return IsAlphaNumeric(event)" />
+							onkeypress="return IsAlphaNumeric(event)"/>
 					</div>
 
 					<div class="form-group col-xs-6">
 						<label for="shortDescription">Short Description (Max 250
 							Characters)</label> <input name="shortDescription"
 							style="border: 1px solid black" type="text" class="form-control"
-							th:field="*{shortDescription}" id="shortDescription"
+							th:field="*{shortDescription}" id="shortDescription" 
 							placeholder="Describe your review request here"
 							onkeypress="shortDescriptionLength(255);" />
 					</div>
