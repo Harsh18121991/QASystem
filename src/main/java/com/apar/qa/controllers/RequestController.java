@@ -116,7 +116,7 @@ public class RequestController {
 		requestData.put("link",httpRequest.getParameter("link"));
 		requestData.put("file",httpRequest.getParameter("file"));
 		JSONObject jsonObject	=	 new JSONObject(requestData);
-		ServiceClient.sendRequestData(jsonObject);
+		ServiceClient.sendRequestData(jsonObject,"addRequests");
 		return "Request/listing" ; 
 	}
 	

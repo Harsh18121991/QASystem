@@ -13,9 +13,9 @@ spring:
   profiles:
     active: default
   datasource:
-    url: jdbc:sqlserver://43.224.136.157:2499;database=qa_system_dev
-    username: qa_user
-    password: pass@word2
+    url: jdbc:sqlserver://192.168.1.201:63820;database=qa_system_dev
+    username: zven_java
+    password: pass@word1
     driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
   main:
     banner-mode: off

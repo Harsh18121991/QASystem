@@ -12,9 +12,10 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesBindin
 @ConfigurationPropertiesBinding
 public class ServiceClient {
 
-	public static void sendRequestData(JSONObject jsonObject) {
+	public static String sendRequestData(JSONObject jsonObject, String requestService) {
+		StringBuffer sb = new StringBuffer();
 		try{
-		 	String requestUrl  = "http://localhost:8080/requests/addRequests";
+		 	String requestUrl  = "http://localhost:8080/requests/"+requestService;
 		 			//+ "/{"+ jsonObject+"}";
 		 	System.out.println("Generated url:: "+requestUrl);
 	        URL url = new URL(requestUrl);
@@ -32,6 +33,7 @@ public class ServiceClient {
 			String output;
 			System.out.println("Output from Server .... \n");
 			while ((output = br.readLine()) != null) {
+				sb.append(output);
 			    System.out.println(output); // Instead of this, you could append all your response to a StringBuffer and use `toString()` to get the entire JSON response as a String.
 			    // This string json response can be parsed using any json library. Eg. GSON from Google.
 			}
@@ -40,11 +42,13 @@ public class ServiceClient {
 	        catch(Exception ex){
 	        	System.out.println(ex.getMessage());
 	        	}
+		return sb.toString();
 }
 	public static void main(String args[]) {
 		JSONObject jsonObject	=	 new JSONObject();
 		jsonObject.put("shilpa", "goel");
 		jsonObject.put("ajay", "jain");
-		sendRequestData(jsonObject);
+		String response = sendRequestData(jsonObject,"listAllRequests");
+		System.out.println("Generated Response::: "+response);
 	}
 }
