@@ -42,8 +42,8 @@ window.onload = function() {debugger;
 	
 	/* window.onchange="gapReduce()" */
 
-function showDiv(elem){
-	   if(elem.value == 'Text'){
+function showDiv(elem){debugger;
+	   if(elem.value == 'TEXT'){
 		   //document.getElementById('fileText').style.display = 'none';
 		  // document.getElementById('linkText').style.display = 'none';
 		   //document.getElementById('contentText').style.display = "block";
@@ -51,7 +51,7 @@ function showDiv(elem){
 		   $("#linkText").removeClass("show").addClass("hide");
 		   $("#contentText").removeClass("hide").addClass("show");
 	   }
-	   if(elem.value == 'Document'){
+	   if(elem.value == 'DOCUMENT'){
 		   //document.getElementById('contentText').style.display = 'none';
 		   //document.getElementById('linkText').style.display = 'none';
 		   //document.getElementById('fileText').style.display = "block";
@@ -59,7 +59,7 @@ function showDiv(elem){
 		   $("#contentText").removeClass("show").addClass("hide");
 		   $("#fileText").removeClass("hide").addClass("show");
 	   }
-	   if(elem.value == 'Link'){
+	   if(elem.value == 'LINK'){
 		   //document.getElementById('contentText').style.display = 'none';
 		  // document.getElementById('linkText').style.display = "block";
 		  // document.getElementById('fileText').style.display = 'none';
