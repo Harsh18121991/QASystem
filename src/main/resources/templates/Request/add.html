@@ -66,29 +66,37 @@
 		var conType = document.forms["createRequestForm"]["contentType"].value;
 		if (requestTitl == "") {
 			alert("Request Title  must be filled out");
+			return false;
 		}
 		if (shortDesc == "") {
 			alert("Short Description  must be filled out");
+			return false;
 		}
 		if (requestTyp == "--Select--") {
 			alert("Please Select The value from Pick List");
+			return false;
 		}
 		if (priorty == "--Select--") {
 			alert("Please Select The Priority Form Pick List");
+			return false;
 		}
 		if (tag == "") {
 			alert("Tag  must be filled out");
+			return false;
 		}
 		if (landlord == "") {
 			alert("Owner  must be filled out");
+			return false;
 		}
 		if (desc == "") {
 			alert("Description  must be filled out");
+			return false;
 		}
 		if (conType == "--Select--") {
 			alert("Please Select The Content Type From Pick List");
+			return false;
 		}
-		return false;
+		return true;
 
 	}
 
