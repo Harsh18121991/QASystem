@@ -2,7 +2,6 @@ package com.apar.qa.services;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,10 +11,8 @@ import org.springframework.stereotype.Service;
 import com.apar.qa.common.DatabaseSequenceGenerator;
 import com.apar.qa.dao.MasterValuesDAO;
 import com.apar.qa.dao.RequestMasterDAO;
-import com.apar.qa.dao.TagMasterDAO;
 import com.apar.qa.models.MasterValuesEntity;
 import com.apar.qa.models.RequestMasterEntity;
-import com.apar.qa.models.TagMasterEntity;
 
 @Service
 public class RequestService {
@@ -25,9 +22,6 @@ public class RequestService {
 	
 	@Autowired
 	private MasterValuesDAO masterValuesDAO;
-	
-	@Autowired
-	private TagMasterDAO tagMasterDAO;
 	
 	@Autowired
 	private TagService tagService;
@@ -52,7 +46,6 @@ public class RequestService {
 		requestBean.setCreatedBy("Ajay");
 		requestBean.setCreatedAt(new Date());
 		requestBean.setOwner("Harsh");
-		//TagMasterEntity tags = tagMasterDAO.findByTagId("TAG000001");
 		requestBean.setTags("apar");
 		MasterValuesEntity priority = masterValuesDAO.findById("MAS000004");
 		requestBean.setPriority(priority);
@@ -127,31 +120,5 @@ public class RequestService {
 		return listRequest;
 	}
 	
-	public Map<String, Map<String, String>> getAllMasterValues()
-	{
-		List<MasterValuesEntity> listMasterValues = masterValuesDAO.findByStatus("ACTIVE");
-		Map<String,Map<String, String>> groupWiseMasterValues = new HashMap<String, Map<String, String>>();
-		Map<String, String> contentMap = new HashMap<>();
-		Map<String, String> requestTypeMap = new HashMap<>();
-		Map<String, String> priorityMap = new HashMap<>();
-		for(MasterValuesEntity mve:listMasterValues)
-		{
-			if(null!=mve.getGroupId() && null!=mve.getGroupId().getGroupName() && "CONTENT".equalsIgnoreCase(mve.getGroupId().getGroupName()))
-			{
-				contentMap.put(mve.getId(), mve.getValue());
-			}
-			else if(null!=mve.getGroupId() && null!=mve.getGroupId().getGroupName() && "REQUESTTYPE".equalsIgnoreCase(mve.getGroupId().getGroupName()))
-			{
-				requestTypeMap.put(mve.getId(), mve.getValue());
-			}
-			else if(null!=mve.getGroupId() && null!=mve.getGroupId().getGroupName() && "PRIORITY".equalsIgnoreCase(mve.getGroupId().getGroupName()))
-			{
-				priorityMap.put(mve.getId(), mve.getValue());
-			}
-		}
-		groupWiseMasterValues.put("content", contentMap);
-		groupWiseMasterValues.put("requestType", requestTypeMap);
-		groupWiseMasterValues.put("priority", priorityMap);
-		return groupWiseMasterValues;
-	}
+	
 }

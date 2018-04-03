@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,13 +23,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.apar.qa.beans.RequestMasterBean;
 import com.apar.qa.rest.ServiceClient;
-import com.apar.qa.services.RequestService;
-import org.json.JSONArray;
+import com.apar.qa.services.MasterValueService;
+
 @Controller
 public class RequestController {
 	
 	@Autowired
-	private RequestService requestService;
+	private MasterValueService masterValueService;
+	
 	private Log LOG = LogFactory.getLog(RequestController.class);
 
 	@GetMapping("/details")
@@ -39,7 +41,7 @@ public class RequestController {
 	@GetMapping("/add")
 	public String newrequestForm( Model model) {
 		model.addAttribute("request", new RequestMasterBean());
-		model.addAttribute("masterValues",requestService.getAllMasterValues());
+		model.addAttribute("masterValues",masterValueService.getAllMasterValues());
 		return "Request/add";
 	}
 
