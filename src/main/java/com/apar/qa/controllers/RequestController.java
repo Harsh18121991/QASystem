@@ -61,7 +61,9 @@ public class RequestController {
 	}
 	
 	@GetMapping("/view")
-	public String viewRequestForm( Model model) {
+	public String viewRequestForm( HttpServletRequest httpRequest,Model model) {
+		String requestId = httpRequest.getParameter("requestId");
+		System.out.println("request id "+requestId);
 		model.addAttribute("request", getBeanDetails().get(0));
 		return "Request/view";
 	}
@@ -135,5 +137,21 @@ public class RequestController {
 		ServiceClient.sendRequestData(jsonObject,"addRequests");
 		return "redirect:/list"; 
 	}
-
+	//for search list
+	@PostMapping("/searchRequest")
+	public String searchRequestData(HttpServletRequest httpRequest,HttpServletResponse httpResponse){
+		Map<String,Object> requestData 	= new HashMap<String,Object>();
+		System.out.println("welcome to handle request search request");
+		requestData.put("requestId",httpRequest.getParameter("requestId"));
+		requestData.put("requestTitle",httpRequest.getParameter("requestTitle"));
+		requestData.put("priority",httpRequest.getParameter("priority"));
+		requestData.put("status",httpRequest.getParameter("status"));
+		requestData.put("fromDate",httpRequest.getParameter("fromDate"));
+		requestData.put("toDate",httpRequest.getParameter("toDate"));
+		requestData.put("tags",httpRequest.getParameter("tags"));
+		System.out.println("json data"+requestData);
+		//JSONObject jsonObject	=	 new JSONObject(requestData);
+		//ServiceClient.sendRequestData(jsonObject,"addRequests");
+		return "redirect:/list"; 
+	}
 }

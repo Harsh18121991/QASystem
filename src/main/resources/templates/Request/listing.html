@@ -92,7 +92,29 @@ $(function(){
 	});
  
 });
-	
+	function getSearchData(searchData){debugger;
+		var form = $('#searchListRequest').serialize();
+		alert("welcome to search funtion"+form);	
+		jQuery.ajax({
+			url : "/searchRequest",
+			type : "POST",
+			data : form,
+	        //contentType: "charset=UTF-8",
+			success : function(resultData) {
+				debugger;alert("success");
+				var l_data = eval('data='+resultData);
+
+			},
+			error : function(a) {
+				alert("1");
+			}
+		})
+	}	
+	function getViewData(view){debugger;
+		var requestId = $(view).parents("tbody").find(".request-Id").text();
+		alert("request id is"+requestId);
+		window.location="/view?requestId="+requestId;
+	}
 //]]>
 </script>
 
@@ -108,18 +130,18 @@ $(function(){
         <section style = "color: #2c3e50;background-color: #ecf0f1;border-color: #ecf0f1;padding: 10px 10px 10px 10px;">
         	
 		<div class="row" style = "padding: 10px 10px 10px 10px;"><h3>Search Criteria</h3>
-		            <form action="#">
+		            <form name = "searchListRequest" id = "searchListRequest">
 		            <div class="form-group col-xs-6">
                         <label for="requestId">Request Id</label>
-                        <input type="text" class="form-control" id="requestId" placeholder="Request Id"/>
+                        <input type="text" class="form-control" id="requestId" name="requestId" placeholder="Request Id"/>
                     </div>
 		            <div class="form-group col-xs-6">
-                        <label for="requestTitle">Request Name</label>
-                        <input type="text" class="form-control" id="requestTitle" placeholder="Request Name"/>
+                        <label for="requestTitle">Request Title</label>
+                        <input type="text" class="form-control" id="requestTitle" name="requestTitle" placeholder="Request Title"/>
                     </div>
 		            <div class="form-group col-xs-6">
                         <label for="priority">Priority</label>
-							<select class="form-control" id="priority">
+							<select class="form-control" id="priority" name = "priority">
                         		  <option value="select">Select</option>
 								  <option value="low">Low</option>
 								  <option value="moderate">Moderate</option>
@@ -128,7 +150,7 @@ $(function(){
                     </div>
 		            <div class="form-group col-xs-6">
                         <label for="status">Status</label>
-                        <select class="form-control" id="status">
+                        <select class="form-control" id="status" name="status">
                         		  <option value="select">Select</option>
 								  <option value="requested">Requested</option>
 								  <option value="inProgress">InProgress</option>
@@ -141,18 +163,18 @@ $(function(){
                     </div>
                             <div class="form-group col-xs-6">
                                 <label for="fromDate">From Date</label>
-                                <input type="date" class="form-control" id="fromDate" placeholder="Select"/>
+                                <input type="date" class="form-control" id="fromDate" name="fromDate" placeholder="Select"/>
                             </div>
                             <div class="form-group col-xs-6">
                                 <label for="toDate">To Date</label>
-                                <input type="date" class="form-control" id="toDate" placeholder="Select"/>
+                                <input type="date" class="form-control" id="toDate" name ="toDate" placeholder="Select"/>
                             </div>
 		            <div class="form-group col-xs-6">
                         <label for="tags">Tags</label>
-                        <input type="text" class="form-control"  id="tags" placeholder="Tags"/>
+                        <input type="text" class="form-control"  id="tags" name="tags" placeholder="Tags"/>
                     </div>
                    <div class="form-group">
-                   <button class="btn btn-primary" style="margin-top:25px;;margin-left:17px">Search</button></div>
+                   <button class="btn btn-primary" style="margin-top:25px;;margin-left:17px" onclick="getSearchData(this)">Search</button></div>
          </form>
 		</div>
 		<div class = "row" style = "padding: 10px 10px 10px 10px;">
@@ -165,11 +187,11 @@ $(function(){
 						<table class="table">
 							<tr>
 								<th>Request Id:</th>
-								<td><span th:text="${request.requestId}"></span></td>
+								<td ><span class = "request-Id" th:text="${request.requestId}"></span></td>
 							</tr>
 							<tr>
 								<th>Request Title:</th>
-								<td><span th:text="${request.requestTitle}"></span></td>
+								<td ><span th:text="${request.requestTitle}"></span></td>
 							</tr>
 							<tr>
 								<th>Short Description:</th>
@@ -188,7 +210,7 @@ $(function(){
 								<td><a><span th:text="${request.contentType}"></span></a></td>
 							</tr>-->
 							<tr> 
-								<td><button class="btn btn-primary" onclick ="window.location='view'">View</button></td>
+								<td><button class="btn btn-primary" onclick ="getViewData(this)">View</button></td>
 							</tr>
 						</table>
 					</div>
