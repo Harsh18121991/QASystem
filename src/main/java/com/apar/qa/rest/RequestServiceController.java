@@ -43,4 +43,11 @@ public class RequestServiceController {
 		return listRequests;
 	}
 	
+	@RequestMapping(value = "/searchAllRequests", method = RequestMethod.POST)
+	public List<RequestMasterEntity> searchUserRequest(@RequestBody Map<String, String> requestMap) {
+		System.out.println("requestMap:::::: "+requestMap);
+		List<RequestMasterEntity> listRequests = requestService.searchAllRequest(requestMap);
+		return listRequests;
+	}
+	
 }

@@ -56,7 +56,7 @@ public class RequestController {
 		String requestService = "listAllRequests";
 		JSONObject jsonObject = new JSONObject() ;
 		String value = ServiceClient.sendRequestData(jsonObject,requestService);
-		model.addAttribute("allRequests",convertJsonToList(value));
+		model.addAttribute("allRequests",convertArrayToList(value));
 		return "Request/listing";
 	}
 	
@@ -104,7 +104,6 @@ public class RequestController {
 		JSONArray jsonArray = new JSONArray(jsonString);
 		for (int i = 0;i<jsonArray.length();i++){
 			JSONObject jsonObject = jsonArray.getJSONObject(i);
-			System.out.println("json object is"+jsonObject);
 			RequestMasterBean bean = new RequestMasterBean();
 			bean.setRequestId(jsonObject.getString("requestId"));
 			bean.setRequestTitle(jsonObject.getString("requestTitle"));
@@ -115,6 +114,24 @@ public class RequestController {
 		}
 		return requestList;
 	}
+	
+	public static ArrayList<RequestMasterBean> convertArrayToList(String data)
+	{
+		ArrayList<RequestMasterBean> requestList = new ArrayList<>();
+		JSONArray jsonArray = new JSONArray(data);
+		for (int i = 0;i<jsonArray.length();i++){
+			JSONArray json = jsonArray.getJSONArray(i);
+			RequestMasterBean bean = new RequestMasterBean();
+			bean.setRequestId(json.getString(0));
+			bean.setRequestTitle(json.getString(1));
+			bean.setShortDescription(json.getString(2));
+			//bean.setDescription(json.getString(3));
+			bean.setTags(json.getString(3));
+			requestList.add(bean);
+		}
+		return requestList;
+	}
+	
 	//this method hits service to save data for create request 
 	@PostMapping("/submitRequest")
 	public String submitRequestData(HttpServletRequest httpRequest,HttpServletResponse httpResponse,Model model){

@@ -120,5 +120,26 @@ public class RequestService {
 		return listRequest;
 	}
 	
+	public List<RequestMasterEntity> searchAllRequest(Map<String, String> requestMap)
+	{
+		
+		List<RequestMasterEntity> listRequest = null;
+		try {
+			String fromDate = requestMap.get("fromDate");
+			String toDate	= requestMap.get("toDate");
+			if(fromDate==null || fromDate.equals(""))
+				fromDate = "01/01/2000";
+			if(toDate==null || toDate.equals(""))
+				toDate	 = "31/12/2099";
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			listRequest = (List<RequestMasterEntity>) requestMasterDAO.findBySearchFilter(requestMap.get("requestId"), 
+					requestMap.get("requestName"), requestMap.get("priority"), requestMap.get("status"), requestMap.get("tags"), 
+					sdf.parse(fromDate), sdf.parse(toDate));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listRequest;
+	}
+	
 	
 }
