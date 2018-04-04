@@ -45,11 +45,11 @@ public class Test {
 	public static void main(String args[]) {
 		JSONObject jsonObject	=	 new JSONObject();
 		jsonObject.put("requestId", "");
-		jsonObject.put("requestName", "");
+		jsonObject.put("requestTitle", "");
 		jsonObject.put("priority", "");
 		jsonObject.put("status", "");
-		jsonObject.put("fromDate", "25/02/2017");
-		jsonObject.put("toDate", "10/04/2018");
+		jsonObject.put("fromDate", "");
+		jsonObject.put("toDate", "");
 		jsonObject.put("tags", "");
 		String response = ServiceClient.sendRequestData(jsonObject,"searchAllRequests");
 		System.out.println("Generated Response::: "+response);
