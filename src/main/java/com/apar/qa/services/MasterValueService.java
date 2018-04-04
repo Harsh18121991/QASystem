@@ -43,4 +43,23 @@ public class MasterValueService {
 		groupWiseMasterValues.put("priority", priorityMap);
 		return groupWiseMasterValues;
 	}
+	
+	public Map<String, String> getAllMasterStatus()
+	{
+		List<Object[]> listStatus = masterValuesDAO.findByGroupName("STATUS");
+		Map<String, String> mapStatus = convertListObjectToMap(listStatus);
+		return mapStatus;
+	}
+	
+	public Map<String, String> convertListObjectToMap(List<Object[]> listObject)
+	{
+		Map<String, String> mapMasterValue = new HashMap<>();
+		for(Object[] obj:listObject)
+		{
+			mapMasterValue.put((String)obj[0], (String)obj[1]);
+		}
+		return mapMasterValue;
+	}
+	
+	
 }
