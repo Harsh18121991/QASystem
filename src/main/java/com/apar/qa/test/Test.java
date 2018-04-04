@@ -1,5 +1,9 @@
 package com.apar.qa.test;
 
+import org.json.JSONObject;
+
+import com.apar.qa.rest.ServiceClient;
+
 public class Test {
 	 /*@Override
 	  public void run(String... args) throws Exception {
@@ -36,6 +40,21 @@ public class Test {
 	      System.out.println("Done!");
 	      //saveRequestBean();
 	      //System.exit(0);
-	  }	*/
+	}	*/
+	
+	public static void main(String args[]) {
+		JSONObject jsonObject	=	 new JSONObject();
+		jsonObject.put("requestId", "");
+		jsonObject.put("requestName", "");
+		jsonObject.put("priority", "");
+		jsonObject.put("status", "");
+		jsonObject.put("fromDate", "25/02/2017");
+		jsonObject.put("toDate", "10/04/2018");
+		jsonObject.put("tags", "");
+		String response = ServiceClient.sendRequestData(jsonObject,"searchAllRequests");
+		System.out.println("Generated Response::: "+response);
+	}
+	
+	
 
 }

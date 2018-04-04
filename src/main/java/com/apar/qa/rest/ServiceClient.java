@@ -43,12 +43,5 @@ public class ServiceClient {
 	        	System.out.println(ex.getMessage());
 	        	}
 		return sb.toString();
-}
-	public static void main(String args[]) {
-		JSONObject jsonObject	=	 new JSONObject();
-		jsonObject.put("shilpa", "goel");
-		jsonObject.put("ajay", "jain");
-		String response = sendRequestData(jsonObject,"listAllRequests");
-		System.out.println("Generated Response::: "+response);
 	}
 }
