@@ -20,9 +20,9 @@ public interface RequestMasterDAO extends CrudRepository<RequestMasterEntity, Se
 
     RequestMasterEntity findByRequestId(String requestId);
     
-    @Query("select r.requestId, r.requestTitle, r.shortDescription, r.tags from RequestMasterEntity r where r.requestId like %:requestId% and r.requestTitle like %:requestName%"
+    @Query("select r.requestId, r.requestTitle, r.shortDescription, r.tags from RequestMasterEntity r where r.requestId like %:requestId% and r.requestTitle like %:requestTitle%"
     		+ " and r.priority.value like %:priority% and r.status.value like %:status% and r.tags like %:tags% and r.createdAt between :fromDate and :toDate")
-    List<RequestMasterEntity> findBySearchFilter(@Param("requestId") String requestId, @Param("requestName") String requestName, 
+    List<RequestMasterEntity> findBySearchFilter(@Param("requestId") String requestId, @Param("requestTitle") String requestTitle, 
     		@Param("priority") String priority, @Param("status") String status, @Param("tags") String tags,
     		@Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
     

@@ -133,7 +133,7 @@ public class RequestService {
 				toDate	 = "31/12/2099";
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			listRequest = (List<RequestMasterEntity>) requestMasterDAO.findBySearchFilter(requestMap.get("requestId"), 
-					requestMap.get("requestName"), requestMap.get("priority"), requestMap.get("status"), requestMap.get("tags"), 
+					requestMap.get("requestTitle"), requestMap.get("priority"), requestMap.get("status"), requestMap.get("tags"), 
 					sdf.parse(fromDate), sdf.parse(toDate));
 		} catch (Exception e) {
 			e.printStackTrace();
