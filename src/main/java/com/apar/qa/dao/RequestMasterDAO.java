@@ -18,7 +18,8 @@ public interface RequestMasterDAO extends CrudRepository<RequestMasterEntity, Se
     //@Query("select c from RequestMasterEntity c where c.requestTitle = :requestTitle")
    // Stream<RequestMasterEntity> findByRequestTitleReturnStream(@Param("requestTitle") String requestTitle);
 
-    RequestMasterEntity findByRequestId(String requestId);
+    @Query("select r.requestId, r.requestTitle, r.shortDescription, r.description, r.tags, r.createdAt, r.createdBy from RequestMasterEntity r where r.requestId = :requestId")
+    Object[] findByRequestId(@Param("requestId") String requestId);
     
     @Query("select r.requestId, r.requestTitle, r.shortDescription, r.tags from RequestMasterEntity r where r.requestId like %:requestId% and r.requestTitle like %:requestTitle%"
     		+ " and r.priority.value like %:priority% and r.status.value like %:status% and r.tags like %:tags% and r.createdAt between :fromDate and :toDate")

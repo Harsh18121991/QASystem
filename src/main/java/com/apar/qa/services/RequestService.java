@@ -141,5 +141,11 @@ public class RequestService {
 		return listRequest;
 	}
 	
+	public Object[] viewRequest(String requestId)
+	{
+		Object[] objRequest = requestMasterDAO.findByRequestId(requestId);
+		return objRequest;
+	}
+	
 	
 }

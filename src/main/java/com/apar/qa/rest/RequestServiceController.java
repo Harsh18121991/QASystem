@@ -50,4 +50,11 @@ public class RequestServiceController {
 		return listRequests;
 	}
 	
+	@RequestMapping(value = "/viewRequest", method = RequestMethod.POST)
+	public Object[] viewUserRequest(@RequestBody Map<String, String> requestMap) {
+		System.out.println("requestMap:::::: "+requestMap);
+		Object[] reqObj = requestService.viewRequest(requestMap.get("requestId"));
+		return reqObj;
+	}
+	
 }
